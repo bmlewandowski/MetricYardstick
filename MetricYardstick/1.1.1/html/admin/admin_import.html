@@ -1,0 +1,41 @@
+﻿<!--Navagation Bar - Primary -->
+<div ng-include="'/1.1.1/html/components/navbar_admin.html'"></div>
+<div class="layout_main_admin">
+    <div class="layout_wrapper">
+        <div class="layout_full">
+            <div class="layout_full_title">Admin User Import</div>
+            <div class="layout_full_text">To import users, click to select a .csv (comma seperated value) file of email addresses and then click upload.</div>
+           
+            <div style="clear: both;"></div>
+            <div style="font-size:14px;">Maximum users on current account: {{userlimit}}</div>
+            <div style="font-size:14px;">Current number of users: {{orgusers.length}}</div>
+            <div style="clear: both; height:10px;"></div>
+            <a href="/adminusers/">
+                <div class="admin_users_button">To User Management</div>
+            </a>
+            <div style="clear: both; height:30px;"></div>
+            <form role="form" class="form-horizontal" name="uploadCsvForm" method="post" enctype="multipart/form-data" ng-hide="ui.uploadform" novalidate>
+
+                <!--<input type="file" class="form-control" id="csvImport" placeholder="CSV file with emails" required accept=".csv" ng-disabled="maxusers()">-->
+                <input class="ng-hide" id="csvImport" multiple type="file" ng-model="prd.bulk_direct_file" required accept=".csv" ng-disabled="maxusers()" onchange="angular.element(this).scope().fileloaded()"/>
+                <label for="csvImport" class="md-button md-raised md-primary">Select .CSV File</label>
+
+                <button type="submit" class="md-button md-raised" data-ng-click="readcsv(uploadCsvForm)" ng-disabled="maxusers()" ng-hide="ui.btnupload">Upload</button>
+
+            </form>
+            <div style="clear:both; height:20px;"></div>
+            <div id="divconfirmimport" ng-hide="divconfirm">
+                <div style="font-size:20px;font-weight:600;margin-bottom:10px;">Preview Import</div>
+                <table>
+                    <tr ng-repeat="(key,value) in importedusers">
+                        <td style="border: 1px solid black;padding:3px;">{{value.email}}{{valid.exists}}<span style="color:red;font-size:14px;" ng-hide="value.valid">* invalid email</span></td>
+                    </tr>
+                </table>
+                <button type="submit" class="md-button md-raised md-primary" ng-disabled="maxusers()">Confirm User Import</button>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both; height:50px;"></div>
+</div>
+<!--Footer-->
+<div ng-include="'/1.1.1/html/components/footer.html'"></div>

@@ -1,0 +1,76 @@
+<!--Navagation Bar - Primary -->
+<div ng-include="'/1.1.1/html/components/navbar_admin.html'"></div>
+
+<div class="layout_main_admin">
+
+    <div class="layout_wrapper">
+
+        <div class="layout_full">
+
+            <div class="layout_full_title">User Managment</div>
+
+            <div class="layout_full_text">Welcome to the user managment area. From here you can add new users manually, or upload a user list. Also, enterprise customers can configure single sign on here.</div>
+
+            <div style="clear: both"></div>
+            <div style="font-size:14px;">Maximum users on current account: {{userlimit}}</div>
+            <div style="font-size:14px;">Current number of users: {{orgusers.length}}</div>
+            <div style="clear: both; height:10px;"></div>
+            <a href="/adminimport/">
+                <div class="admin_users_button">To Mass Import Users</div>
+            </a>
+            <div style="clear:both; height:20px;"></div>
+                <form name="addMemberForm" ng-submit="adduser()" validate>
+                    <md-input-container class="md-block">
+                        <label>New User Email</label>
+                        <input type="email" name="useremail" ng-model="adduser.useremail"
+                               minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+                        <div ng-messages="addMemberForm.useremail.$error" role="alert">
+                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">
+                                Email must be between 10 and 100 characters long and look like an e-mail address.
+                            </div>
+                        </div>
+                        <md-button type="submit" class="md-raised md-primary" name="submit" ng-disabled="maxusers()"> Add New User </md-button>
+
+                    </md-input-container>
+                    <div style="float:right">
+                        <span style="color:limegreen;" ng-show="emailAllSuccess">*emails sent to all users</span>
+                        <md-button class="md-raised edgePadding" ng-click="showConfirmAll()">Send All Users Login</md-button>            
+                    </div>
+                </form>
+
+            <!--Skill Table Grid-->
+
+            <table class="user_skill_table">
+
+                <tr>
+                    <td class="user_skill_th">#</td>
+                    <td class="user_skill_th">UserId</td>
+                    <td class="user_skill_th">Email</td>
+                    <td class="user_skill_th">Date Added</td>
+                    <td class="user_skill_th">Login Link</td>
+
+                </tr>
+
+                <tr ng-repeat="(key,value) in orgusers">
+                    <td class="user_skill_tr"></td>
+                    <td class="user_skill_tr">{{value.userId}}</td>
+                    <td class="user_skill_tr">{{value.userName}}</td>
+                    <td class="user_skill_tr">{{value.created| date:'MM/dd/yyyy'}}</td>
+                    <td class="user_skill_tr"><md-button class="md-raised edgePadding" ng-click="showConfirmSingle(value.userName)">Send Link</md-button></td>
+                </tr>
+
+            </table>
+              
+        </div>
+
+    </div>
+
+    <div style="clear:both; height:50px;"></div>
+
+
+
+</div>
+
+<!--Footer-->
+<div ng-include="'/1.1.1/html/components/footer.html'"></div>

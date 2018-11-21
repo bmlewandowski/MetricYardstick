@@ -1,0 +1,228 @@
+<!--Navagation Bar - Primary -->
+<div ng-include="'/1.1.1/html/components/navbar_admin.html'"></div>
+
+<div class="layout_main_admin">
+
+    <div class="layout_wrapper">
+        <div class="layout_full">
+
+            <div class="layout_full_title">Skills Catalog</div>
+
+            <div class="layout_full_text">Welcome to the Skill Catalog area. From here you can manage the skills your users can see, and also create custom skills.</div>
+
+            <div style="clear: both; height:20px;"></div>
+
+            <!--SKILL AREA LIST-->
+            <div class="layout_catalog_left">
+
+                <div class="layout_catalog_title">
+
+                    <span>Skill Areas</span>
+
+                    <a href="/adminaddarea/">
+                        <div class="layout_catalog_titlebutton">+ Add Area</div>
+                    </a>
+
+                </div>
+
+                <!--Display Areas-->
+                <div style="overflow-y: scroll; height:400px;">
+
+                    <div ng-repeat="area in areas | orderBy : 'name'">
+
+                        <div ng-switch="area.id == admin_catalog_state.currentArea && area.type == admin_catalog_state.currentAreaType">
+
+                            <!--Display Selected Item-->
+                            <div ng-switch-when="true" class="layout_catalog_itemselected">
+
+                                <a ng-click="selectArea(area.id, area.type)">
+
+                                    <div class="layout_catalog_item_title">{{ area.name }}</div>
+                                </a>
+
+                                <div class="layout_catalog_item_description">{{ area.description }}</div>
+
+                                <div style="text-align:right;margin-top:7px;">
+
+                                    <!-- Switch Edit/Delete controls based on type -->
+                                    <div ng-switch="area.type">
+
+                                        <div ng-switch-when="master">
+
+                                        </div>
+
+                                        <div ng-switch-when="custom">
+                                            <a href="/admineditarea/{{area.id}}">
+                                                <span class="layout_catalog_itembutton">EDIT</span>
+                                            </a>
+
+                                            <a href="/admindeletearea/{{area.id}}">
+                                                <span class="layout_catalog_itembutton">DELETE</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--Display Non-Selected Item-->
+                            <div ng-switch-default class="layout_catalog_item">
+                                <a ng-click="selectArea(area.id, area.type)">
+                                    <div class="layout_catalog_item_title">{{ area.name }}</div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--SKILL CATAGORY LIST-->
+            <div class="layout_catalog_center">
+
+                <div class="layout_catalog_title">
+
+                    <span>Categories</span>
+
+                    <a href="/adminaddcategory/{{admin_catalog_state.currentArea}}/{{admin_catalog_state.currentAreaType}}">
+                        <div class="layout_catalog_titlebutton">+ Add category</div>
+                    </a>
+
+                </div>
+
+                <div style="overflow-y: scroll; height:400px;">
+
+                    <div ng-repeat="category in categories">
+
+                        <div ng-switch="category.id == admin_catalog_state.currentCategory && category.type == admin_catalog_state.currentCategoryType">
+
+                            <!--Display Selected Item-->
+                            <div ng-switch-when="true" class="layout_catalog_itemselected">
+
+                                <a ng-click="selectcategory(category.id, category.type)">
+                                    <div class="layout_catalog_item_title">{{ category.name }}</div>
+                                </a>
+
+                                <div class="layout_catalog_item_description">{{ category.description }}</div>
+
+                                <div style="text-align:right;margin-top:7px;">
+
+                                    <!-- Switch Edit/Delete controls based on type -->
+                                    <div ng-switch="category.type">
+                                        <div ng-switch-when="master">
+
+                                        </div>
+                                        <div ng-switch-when="custom">
+                                            <a href="/admineditcategory/{{category.id}}">
+                                                <span class="layout_catalog_itembutton">EDIT</span>
+                                            </a>
+
+                                            <a href="/admindeletecategory/{{category.id}}">
+                                                <span class="layout_catalog_itembutton">DELETE</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--Display Non-Selected Item-->
+                            <div ng-switch-default class="layout_catalog_item">
+                                <a ng-click="selectCategory(category.id, category.type)">
+                                    <div class="layout_catalog_item_title">{{ category.name }}</div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--SKILL LIST-->
+            <div class="layout_catalog_right">
+
+                <div class="layout_catalog_title">
+
+                    <span>Skills</span>
+
+                    <a href="/adminaddskill/{{admin_catalog_state.currentCategory}}">
+                        <div class="layout_catalog_titlebutton">+ Add a Skill</div>
+                    </a>
+
+                </div>
+
+                <div style="overflow-y: scroll; height:400px;">
+
+                    <div ng-repeat="skill in skills">
+
+                        <div ng-switch="skill.id == admin_catalog_state.currentSkill && skill.type == admin_catalog_state.currentSkillType">
+
+                            <!--Display Selected Item-->
+                            <div ng-switch-when="true" class="layout_catalog_itemselected">
+
+                                <a ng-click="selectSkill(skill.id, skill.type)">
+                                    <div class="layout_catalog_item_title">{{ skill.name }}</div>
+                                </a>
+
+                                <div class="layout_catalog_item_description">{{ skill.description }}</div>
+
+                                <div style="text-align:right;margin-top:7px;">
+
+                                    <!-- Switch Edit/Delete controls based on type -->
+                                    <div ng-switch="skill.type">
+                                        <div ng-switch-when="master">
+
+                                        </div>
+                                        <div ng-switch-when="custom">
+                                            <a href="/admineditskill/{{skill.id}}">
+                                                <span class="layout_catalog_itembutton">EDIT</span>
+                                            </a>
+
+                                            <a href="/admindeleteskill/{{skill.id}}">
+                                                <span class="layout_catalog_itembutton">DELETE</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--Display Non-Selected Item-->
+                            <div ng-switch-default class="layout_catalog_item">
+                                <a ng-click="selectSkill(skill.id, skill.type)">
+                                    <div class="layout_catalog_item_title">{{ skill.name }}</div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div style="clear: both"></div>
+
+
+        </div>
+
+    </div>
+
+    <div style="clear:both; height:50px;"></div>
+
+</div>
+
+<!--Footer-->
+<div ng-include="'/1.1.1/html/components/footer.html'"></div>

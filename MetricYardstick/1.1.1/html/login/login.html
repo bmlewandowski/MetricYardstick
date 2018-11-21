@@ -1,0 +1,58 @@
+<!--Landing Header -->
+<div ng-include="'/1.1.1/html/components/landing_header.html'"></div>
+
+<div class="layout_main">
+
+    <div class="layout_wrapper">
+
+        <div class="layout_full">
+
+            <div class="layout_full_title">Login</div>
+
+            <div class="layout_full_text">
+                Logging into SkillResults is quick and easy, It does not rely on passwords or complex PIN codes.
+                All you need to do to login is enter your work email address and we will send you a Secure Login Link.
+            </div>
+
+            <!--LOGIN FORM AREA-->
+            <div style="margin-left:200px;margin-top:60px;">
+
+                <form name="loginEmailForm" ng-submit="loginemail()" novalidate>
+
+                    <div style="margin-bottom:20px;">Enter your email and click login:</div>
+
+                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="loginemail.email" />
+
+                    <button class="user_search_button" ng-click="submit()" style="border:none;">LOGIN</button>
+
+                </form>
+
+                <!--Link to Register Area-->
+                <div style="margin-top:20px;font-size:14px;">
+                    <a class="form_message" href="/register/">Want to try for free? Register Here</a>
+                </div>
+
+            </div>
+
+            <!--TEMP LINK AREA -->
+            <div ng-if="secureloginlink" style="margin-top:30px; margin-left:100px; width:700px;">
+
+                Below is a temporary login link:<br /><br />
+
+                <a ng-href="{{secureloginlink}}">{{secureloginlink}}</a>
+
+                <br /><br />
+
+                NOTE! This will be removed in production environments and moved to email.
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="clear:both; height:50px;"></div>
+</div>
+
+<!--Landing Footer-->
+<div ng-include="'/1.1.1/html/components/landing_footer.html'"></div>

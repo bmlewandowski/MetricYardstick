@@ -1,0 +1,50 @@
+<!--Landing Header -->
+<div ng-include="'/1.1.1/html/components/landing_header.html'"></div>
+
+<div class="layout_main">
+
+    <div class="layout_wrapper">
+
+        <div class="layout_full">
+
+            <div class="layout_full_title">Register</div>
+
+            <div class="layout_full_text">Ready to try SkillResults? Our Sign Up is Quick and Easy and designed to get you up and running fast! Just fill out your company name and email to dive right in!</div>
+
+            <div style="clear: both;padding-bottom: 30px;"></div>
+            
+            <!--REGISTER FORM BEGIN-->
+
+            <div style="margin-left:250px;">
+
+                <form name="RegisterForm" ng-submit="register()" novalidate>
+
+                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="register.email" />
+                    <div style="clear: both;padding-bottom: 30px;"></div>
+
+                    <input class="user_search_input" placeholder="Organization or Company Name" type="text" name="Organization" ng-model="register.organization" />
+                    <div style="clear: both;padding-bottom: 30px;"></div>
+                    <button class="user_search_button" ng-click="submit()" style="border:none;width:150px;">REGISTER</button>
+
+                </form>
+
+                <!--Link to Login Area-->
+                <div style="margin-top:30px;font-size:14px;">
+                    <a class="form_message" href="/login/">Have an account already? Login Here</a>
+                </div>
+
+
+            </div>
+                   
+
+        </div>
+
+    </div>
+
+    <div style="clear:both; height:50px;"></div>
+
+</div>
+
+
+<!--Landing Footer-->
+<div ng-include="'/1.1.1/html/components/landing_footer.html'"></div>

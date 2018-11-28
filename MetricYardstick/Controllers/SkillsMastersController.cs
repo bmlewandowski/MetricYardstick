@@ -40,7 +40,7 @@ namespace MetricYardstick.Controllers
         // GET: api/SkillsGroupMasters/5/
         [Route("api/SkillsGroupMasters/{id}/")]
         [ResponseType(typeof(SkillsMaster))]
-        public IEnumerable<SkillsMaster> GetSkillsGroupCustom(int id)
+        public IEnumerable<SkillsMaster> GetSkillsGroupMasters(int id)
         {
             string sqlstring = "EXEC dbo.get_skillsbycategorymasters @id = '" + id + "'";
             IEnumerable<SkillsMaster> dataObj = db.Database.SqlQuery<SkillsMaster>(sqlstring);

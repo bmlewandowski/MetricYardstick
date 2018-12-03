@@ -22,6 +22,10 @@ namespace MetricYardstick.Controllers
 {
     public class AuthenticateController : ApiController
     {
+
+        //Establish Database Connection for the Controller
+        private ApplicationDbContext authdb = new ApplicationDbContext();
+
         /// <summary>
         /// Function to Send Email
         /// </summary>
@@ -47,7 +51,23 @@ namespace MetricYardstick.Controllers
             return response2;
         }
 
-        // GET: api/checkin/
+        // GET: api/authenticate/id
+        /// <summary>
+        /// Returns user object for provided userId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        [Route("api/Authenticate/{id}")]
+        public IEnumerable<UserObjectViewModel> GetViewUserObject(string id)
+        {
+            string sqlstring = "EXEC dbo.user_object @userId = '" + id + "'";
+            IEnumerable<UserObjectViewModel> userobj = authdb.Database.SqlQuery<UserObjectViewModel>(sqlstring);
+            return userobj;
+        }
+
+        // GET: api/authenticate/
         /// <summary>
         /// Takes UserId and 2 provided GUIDs as Querystrings and tests that the keys are correct and that        
         /// the expiration for the keys hasn't passed and then sends the requester an authentication token.
@@ -143,7 +163,7 @@ namespace MetricYardstick.Controllers
 
         }
 
-        // POST api/checkin/
+        // POST api/authenticate/
         /// <summary>
         /// Takes provided email address and if user exists, generates 2 new GUIDS and expiration date and
         /// saves them on the organizationuser record while generating a querystring url to be used to login.
@@ -185,7 +205,7 @@ namespace MetricYardstick.Controllers
                 sqlConn.Close();
 
                 var tokenResponse = "/auth/" + user.Id + "/" + NewAuthKey01 + "/" + NewAuthKey02 + "/";
-                await SendMail(tokenResponse, user.Email, reqemail.Template);
+              //  await SendMail(tokenResponse, user.Email, reqemail.Template);
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, tokenResponse);
                 return response;

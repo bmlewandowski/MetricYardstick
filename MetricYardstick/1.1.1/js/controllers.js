@@ -732,7 +732,93 @@ angularApp.controller("user_helpCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_viewCtrl", function ($scope) {
+angularApp.controller("user_viewCtrl", function ($scope, $http, $routeParams) {
+
+    $scope.initialize = function () {
+
+        //Initalize Data Models
+        $scope.userskills = {};
+        $scope.viewuser = {};
+
+        //Load Data Models
+        $scope.loaduser();
+        $scope.loaduserskills();
+
+    }
+
+    //Load User Object
+    $scope.loaduser = function (id) {
+
+        $http.get('/api/Authenticate/' + $routeParams.id,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(viewuser) {
+
+                $scope.viewuser = viewuser.data[0];
+
+                //on Fail, log the failure data.
+
+            }, function errorCallback(response) {
+
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Load User Skills Function
+    $scope.loaduserskills = function (id) {
+
+        $http.get('/api/UserSkills/GetUsersSkills/' + $routeParams.id + "/master",
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(masterdata) {
+
+
+                $http.get('/api/UserSkills/GetUsersSkills/' + $routeParams.id + "/custom",
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        }
+
+                        //On Success Response from API
+                    }).then(function successCallback(customdata) {
+
+                        $scope.userskills = masterdata.data.concat(customdata.data);
+
+                        //on Fail, log the failure data.
+
+                    }, function errorCallback(response) {
+
+
+                        console.log(response);
+
+                    });
+
+                //on Fail, log the failure data.
+
+            }, function errorCallback(response) {
+
+
+                console.log(response);
+
+            });
+
+    };
+
+    $scope.initialize();
 
     console.log('View User Controller Processed');
 

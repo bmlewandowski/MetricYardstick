@@ -154,6 +154,21 @@ angularApp.config(function ($routeProvider, $locationProvider) {
             }
         })
 
+        .when('/user/:id', {
+            controller: 'user_viewCtrl',
+            templateUrl: '/1.1.1/html/user/user_view.html',
+            routedata: {
+                secure: true,
+                title: 'View User Area',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
         //Routes for Admin Areas 
 
         .when('/admin/', {

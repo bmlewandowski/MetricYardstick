@@ -367,6 +367,7 @@
     <Content Include="1.1.1\html\user\user_search.html" />
     <Content Include="1.1.1\html\user\user_settings.html" />
     <Content Include="1.1.1\html\user\user_skills.html" />
+    <Content Include="1.1.1\html\user\user_view.html" />
     <Content Include="1.1.1\html\user\user_wishlist.html" />
     <Content Include="1.1.1\img\admin-home\admin_campaigns.png" />
     <Content Include="1.1.1\img\admin-home\admin_home_banner.png" />

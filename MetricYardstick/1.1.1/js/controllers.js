@@ -618,7 +618,7 @@ angularApp.controller("user_reportsCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_searchCtrl", function ($scope, $http) {
+angularApp.controller("user_searchCtrl", function ($scope, $http, $location) {
 
     $scope.initialize = function () {
 
@@ -703,6 +703,17 @@ angularApp.controller("user_searchCtrl", function ($scope, $http) {
 
     };
 
+    $scope.addskill = function (id, type) {
+
+        $location.path('/addskill/' + id + '/' + type);
+
+    };
+
+    $scope.viewuser = function (id) {
+
+        $location.path('/user/' + id);
+    };
+
     $scope.initialize();
 
     console.log('Search Controller Processed');
@@ -718,6 +729,12 @@ angularApp.controller("user_settingsCtrl", function ($scope) {
 angularApp.controller("user_helpCtrl", function ($scope) {
 
     console.log('User Help Controller Processed');
+
+});
+
+angularApp.controller("user_viewCtrl", function ($scope) {
+
+    console.log('View User Controller Processed');
 
 });
 

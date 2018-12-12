@@ -188,6 +188,7 @@
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="CategoryType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SkillId" Type="int" Nullable="false" />
+          <Property Name="SkillType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -567,17 +568,6 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="CategorySkillsMaster">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="CategoryType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SkillId" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Organization">
           <Key>
             <PropertyRef Name="Id" />
@@ -704,7 +694,6 @@
           <EntitySet Name="CategoriesLocals" EntityType="Self.CategoriesLocal" />
           <EntitySet Name="CategoriesMasters" EntityType="Self.CategoriesMaster" />
           <EntitySet Name="CategorySkillsCustoms" EntityType="Self.CategorySkillsCustom" />
-          <EntitySet Name="CategorySkillsMasters" EntityType="Self.CategorySkillsMaster" />
           <EntitySet Name="Organizations" EntityType="Self.Organization" />
           <EntitySet Name="OrganizationUsers" EntityType="Self.OrganizationUser" />
           <EntitySet Name="SkillsCustoms" EntityType="Self.SkillsCustom" />
@@ -747,6 +736,7 @@
           <FunctionImport Name="user_object" ReturnType="Collection(MetricYardstickDBModel.user_object_Result)">
           <Parameter Name="userId" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="CategorySkillsMasters" EntityType="MetricYardstickDBModel.CategorySkillsMaster" />
         </EntityContainer>
         <ComplexType Name="get_categoriesbyareacustoms_Result">
           <Property Type="Int32" Name="id" Nullable="true" />
@@ -793,6 +783,18 @@
           <Property Type="String" Name="OrgName" Nullable="true" MaxLength="100" />
           <Property Type="DateTime" Name="OrgCreatedOn" Nullable="true" />
         </ComplexType>
+        <EntityType Name="CategorySkillsMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="SkillType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -977,18 +979,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CategorySkillsMasters">
-            <EntityTypeMapping TypeName="MetricYardstickDBModel.CategorySkillsMaster">
-              <MappingFragment StoreEntitySet="CategorySkillsMasters">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
-                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Organizations">
             <EntityTypeMapping TypeName="MetricYardstickDBModel.Organization">
               <MappingFragment StoreEntitySet="Organizations">
@@ -1150,6 +1140,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CategorySkillsMasters">
+            <EntityTypeMapping TypeName="MetricYardstickDBModel.CategorySkillsMaster">
+              <MappingFragment StoreEntitySet="CategorySkillsMasters">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="SkillType" ColumnName="SkillType" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

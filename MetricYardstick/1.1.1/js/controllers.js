@@ -1829,6 +1829,7 @@ angularApp.controller("admin_addcategoryCtrl", function ($scope, $rootScope, $ht
     $scope.areacategoriesmasters = {
         AreaId: $routeParams.areaid,
         AreaType: $routeParams.areatype,
+        Type: "custom",
         CategoryId: 0
     };
 
@@ -1849,7 +1850,8 @@ angularApp.controller("admin_addcategoryCtrl", function ($scope, $rootScope, $ht
 
                 console.log(response);
 
-                $scope.areacategoriesmasters.categoryId = response.data.id;
+                $scope.areacategoriesmasters.CategoryId = response.data.id;
+                $scope.areacategoriesmasters.CategoryType = response.data.type;
 
                 //Make a second Rest Call
                 $http.post('/api/AreaCategoriesCustoms/', $scope.areacategoriesmasters,

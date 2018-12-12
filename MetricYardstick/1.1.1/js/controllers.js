@@ -2078,7 +2078,9 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
     $scope.categoryskillsmaster = {
         CategoryId: $routeParams.categoryid,
-        skillid: ''
+        CategoryType: "custom",
+        Type: "custom",
+        SkillId: ''
     };
 
     //Function to Submit the Form
@@ -2095,7 +2097,8 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
             //On Succsess of the REST call
             }).then(function (response) {
 
-                $scope.categoryskillsmaster.skillid = response.data.id;
+                $scope.categoryskillsmaster.SkillId = response.data.id;
+                $scope.categoryskillsmaster.SkillType = response.data.type;
 
                 console.log($scope.categoryskillsmaster);
 

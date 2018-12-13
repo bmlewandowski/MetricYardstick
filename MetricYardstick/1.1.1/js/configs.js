@@ -321,7 +321,7 @@ angularApp.config(function ($routeProvider, $locationProvider) {
             }
         })
 
-        .when('/adminaddskill/:categoryid', {
+        .when('/adminaddskill/:categoryid/:categorytype', {
             controller: 'admin_addskillCtrl',
             templateUrl: '/1.1.1/html/admin/admin_addskill.html',
             routedata: {

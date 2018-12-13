@@ -2078,7 +2078,7 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
     $scope.categoryskillsmaster = {
         CategoryId: $routeParams.categoryid,
-        CategoryType: "custom",
+        CategoryType: $routeParams.categorytype,
         Type: "custom",
         SkillId: ''
     };

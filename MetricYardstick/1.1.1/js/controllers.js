@@ -1501,6 +1501,7 @@ angularApp.controller("admin_addareaCtrl", function ($scope, $http, $location) {
     //Initialize the data models
     $scope.area = {
         Type: "custom",
+        Description: ''
     };
 
     //Function to Submit the Form
@@ -1823,7 +1824,8 @@ angularApp.controller("admin_addcategoryCtrl", function ($scope, $rootScope, $ht
 
     //Initialize the data models
     $scope.category = {
-        Type: "custom"
+        Type: "custom",
+        Description: ''
     };
 
     $scope.areacategoriesmasters = {
@@ -2074,6 +2076,7 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
     $scope.skill = {
         Hidden: false,
         Type: "custom",
+        Description: ''
     };
 
     $scope.categoryskillsmaster = {

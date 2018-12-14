@@ -1508,6 +1508,9 @@ angularApp.controller("admin_addareaCtrl", function ($scope, $http, $location) {
         //Set Created date
         $scope.area.Created = new Date();
 
+        //Set Created date
+        $scope.area.Created = new Date();
+
         //Make a Rest Call
         $http.post('/api/AreasCustoms/', $scope.area,
             {
@@ -1842,6 +1845,9 @@ angularApp.controller("admin_addcategoryCtrl", function ($scope, $rootScope, $ht
         //Set Created date
         $scope.category.Created = new Date();
 
+        //Set Created date
+        $scope.category.Created = new Date();
+
         //Make a Rest Call
         $http.post('/api/CategoriesCustoms/', $scope.category,
             {
@@ -2092,6 +2098,9 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
     //Function to Submit the Form
     $scope.submit = function () {
+
+        //Set Created date
+        $scope.skill.Created = new Date();
 
         //Make a Rest Call
         $http.post('/api/SkillsCustoms/', $scope.skill,

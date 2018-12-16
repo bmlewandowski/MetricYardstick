@@ -19,7 +19,7 @@ namespace MetricYardstick
             string trimname = name.Trim();
 
             //replace spaces and multiple spaces with dash
-            string dashname = Regex.Replace(trimname, " {2,}", "-");
+            string dashname = Regex.Replace(trimname, @"\s+", "-");
 
             //covert to lowercase
             string value = dashname.ToLower();

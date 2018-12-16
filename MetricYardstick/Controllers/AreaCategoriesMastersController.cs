@@ -13,6 +13,7 @@ using MetricYardstick;
 
 namespace MetricYardstick.Controllers
 {
+    [Authorize]
     public class AreaCategoriesMastersController : ApiController
     {
         private MetricYardstickDBEntities db = new MetricYardstickDBEntities();

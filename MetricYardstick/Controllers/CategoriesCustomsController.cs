@@ -17,18 +17,6 @@ namespace MetricYardstick.Controllers
     [Authorize]
     public class CategoriesCustomsController : ApiController
     {
-        /// <summary>
-        /// Get Current User ID from Claim of Auth Token
-        /// </summary>
-        /// <returns></returns>
-        [NonAction]
-        public string getUserId()
-        {
-            var claimsIdentity = (ClaimsIdentity)this.RequestContext.Principal.Identity;
-            var userId = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            return userId;
-        }
-
         private MetricYardstickDBEntities db = new MetricYardstickDBEntities();
 
         // GET: api/CategoriesCustoms
@@ -74,6 +62,16 @@ namespace MetricYardstick.Controllers
                 return BadRequest();
             }
 
+            //Set Value of Name for Comparison
+            categoriesCustom.Value = GetValue.Converted(categoriesCustom.Name);
+
+            //See if Value exists
+            var exists = await db.CategoriesCustoms.Where(x => x.Value == categoriesCustom.Value).FirstOrDefaultAsync();
+            if (exists != null)
+            {
+                return BadRequest("Duplicate: " + exists.Name + " " + exists.Id + " " + exists.Type);
+            }
+
             db.Entry(categoriesCustom).State = EntityState.Modified;
 
             try
@@ -111,6 +109,9 @@ namespace MetricYardstick.Controllers
             //Get Current Date & Time and apply to the Model
             categoriesCustom.Created = DateTime.Now;
 
+            //Set Value of Name for Comparison
+            categoriesCustom.Value = GetValue.Converted(categoriesCustom.Name);
+
             //Set the Area Type to the Model
             categoriesCustom.Type = "custom";
 
@@ -120,6 +121,14 @@ namespace MetricYardstick.Controllers
                 return BadRequest(ModelState);
             }
 
+            //See if Value exists
+            var exists = await db.CategoriesCustoms.Where(x => x.Value == categoriesCustom.Value).FirstOrDefaultAsync();
+            if (exists != null)
+            {
+                return BadRequest("Duplicate: " + exists.Name + " " + exists.Id + " " + exists.Type);
+            }
+
+            //Add the Model to the Database
             db.CategoriesCustoms.Add(categoriesCustom);
             await db.SaveChangesAsync();
 

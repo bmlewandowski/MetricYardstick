@@ -7,6 +7,11 @@ namespace MetricYardstick
 {
     public class FetchTemplate
     {
+        /// <summary>
+        /// Reads the content of a stored HTML email template
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <returns></returns>
         public static string ReadFile(string FileName)
         {
             try

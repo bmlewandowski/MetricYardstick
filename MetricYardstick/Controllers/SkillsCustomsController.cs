@@ -61,6 +61,16 @@ namespace MetricYardstick.Controllers
                 return BadRequest();
             }
 
+            //Set Value of Name for Comparison
+            skillsCustom.Value = GetValue.Converted(skillsCustom.Name);
+
+            //See if Value exists
+            var exists = await db.SkillsCustoms.Where(x => x.Value == skillsCustom.Value).FirstOrDefaultAsync();
+            if (exists != null)
+            {
+                return BadRequest("Duplicate: " + exists.Name + " " + exists.Id + " " + exists.Type);
+            }
+
             db.Entry(skillsCustom).State = EntityState.Modified;
 
             try
@@ -98,6 +108,9 @@ namespace MetricYardstick.Controllers
             //Get Current Date & Time and apply to the Model
             skillsCustom.Created = DateTime.Now;
 
+            //Set Value of Name for Comparison
+            skillsCustom.Value = GetValue.Converted(skillsCustom.Name);
+
             //Set the Area Type to the Model
             skillsCustom.Type = "custom";
 
@@ -106,6 +119,14 @@ namespace MetricYardstick.Controllers
                 return BadRequest(ModelState);
             }
 
+            //See if Value exists
+            var exists = await db.SkillsCustoms.Where(x => x.Value == skillsCustom.Value).FirstOrDefaultAsync();
+            if (exists != null)
+            {
+                return BadRequest("Duplicate: " + exists.Name + " " + exists.Id + " " + exists.Type);
+            }
+
+            //Add the Model to the Database
             db.SkillsCustoms.Add(skillsCustom);
             await db.SaveChangesAsync();
 

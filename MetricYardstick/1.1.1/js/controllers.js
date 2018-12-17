@@ -18,6 +18,35 @@ angularApp.controller("user_skillsCtrl", function ($scope, $rootScope, $http) {
 
     }
 
+    //Change Row Color Based on Rating
+    $scope.ratingstyle= function (value) {
+
+        if (value.rating < 26) {
+            return {
+                color: "red"
+            }
+        }
+
+        if (value.rating > 25 && value.rating < 51) {
+            return {
+                color: "orange"
+            }
+        }
+
+        if (value.rating > 50 && value.rating < 75) {
+            return {
+                color: "blue"
+            }
+        }
+
+        if (value.rating > 75) {
+            return {
+                color: "green"
+            }
+        }
+
+    }
+
     //Load User Skills Function
     $scope.loaduserskills = function () {
 
@@ -743,6 +772,35 @@ angularApp.controller("user_viewCtrl", function ($scope, $http, $routeParams) {
         //Load Data Models
         $scope.loaduser();
         $scope.loaduserskills();
+
+    }
+
+    //Change Row Color Based on Rating
+    $scope.ratingstyle = function (value) {
+
+        if (value.rating < 26) {
+            return {
+                color: "red"
+            }
+        }
+
+        if (value.rating > 25 && value.rating < 51) {
+            return {
+                color: "orange"
+            }
+        }
+
+        if (value.rating > 50 && value.rating < 75) {
+            return {
+                color: "blue"
+            }
+        }
+
+        if (value.rating > 75) {
+            return {
+                color: "green"
+            }
+        }
 
     }
 

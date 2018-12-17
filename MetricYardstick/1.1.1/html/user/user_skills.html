@@ -28,7 +28,7 @@
                         <td class="user_skill_th">Modified</td>
                     </tr>
 
-                    <tr ng-repeat="(key,value) in userskills">
+                    <tr ng-repeat="(key,value) in userskills" ng-style="ratingstyle(value)">
                         <td class="user_skill_tr"><a href="/editskill/{{value.id}}/{{value.type}}"><div class="user_skill_editbutton">EDIT</div></a></td>
                         <td class="user_skill_tr">{{value.name}}</td>
                         <td class="user_skill_tr">{{value.rating}}</td>

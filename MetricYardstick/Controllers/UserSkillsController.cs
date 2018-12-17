@@ -100,7 +100,7 @@ namespace MetricYardstick.Controllers
             {
                 var query = from usr in db.UserSkills
                             join ski in db.SkillsMasters on usr.SkillId equals ski.Id
-                            where usr.UserId == id
+                            where usr.UserId == id && usr.Type == "master"
                             select new
                             {
                                 usr.Rating,
@@ -120,7 +120,7 @@ namespace MetricYardstick.Controllers
             {
                 var query = from usr in db.UserSkills
                             join ski in db.SkillsCustoms on usr.SkillId equals ski.Id
-                            where usr.UserId == id
+                            where usr.UserId == id && usr.Type == "custom"
                             select new
                             {
                                 usr.Rating,

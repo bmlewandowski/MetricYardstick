@@ -2080,8 +2080,6 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
     console.log('Admin Add Skill Controller Processed');
 
-    console.log($routeParams);
-
     //Initialize the data models
     $scope.skill = {
         Hidden: false,
@@ -2115,9 +2113,7 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
                 $scope.categoryskillsmaster.SkillId = response.data.id;
                 $scope.categoryskillsmaster.SkillType = response.data.type;
-
-                console.log($scope.categoryskillsmaster);
-
+;
                 //Make a second Rest Call
                 $http.post('/api/CategorySkillsCustoms/', $scope.categoryskillsmaster,
                     {
@@ -2129,8 +2125,6 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
                         //On Succsess of the REST call
                     }).then(function (response) {
 
-                        console.log(response);
-
                         $location.path('/adminskills/');
 
                         //On Failure of the REST call
@@ -2140,8 +2134,6 @@ angularApp.controller("admin_addskillCtrl", function ($scope, $http, $routeParam
 
                 //On Failure of the REST call
             }, function errorCallback(response) {
-
-                console.log($scope.skill);
 
                 console.log(response);
 

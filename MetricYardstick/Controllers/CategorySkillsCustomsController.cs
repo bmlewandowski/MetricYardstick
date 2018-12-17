@@ -92,7 +92,7 @@ namespace MetricYardstick.Controllers
             categorySkillsCustom.Type = "custom";
 
             //Set the Area Type to the Model
-            categorySkillsCustom.CategoryType = "custom";
+            //categorySkillsCustom.CategoryType = "custom";
 
             //Set the Area Type to the Model
             categorySkillsCustom.SkillType = "custom";

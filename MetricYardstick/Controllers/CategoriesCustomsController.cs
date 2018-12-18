@@ -48,7 +48,10 @@ namespace MetricYardstick.Controllers
         [ResponseType(typeof(CategoriesCustom))]
         public IEnumerable<CategoriesMaster> GetCategoriesbyAreaCustom(int id)
         {
-            string sqlstring = "EXEC dbo.get_categoriesbyareacustoms @id = '" + id + "'";
+            //Get Current User from Claim Token
+            var User = new AccountController().getUser();
+
+            string sqlstring = "EXEC dbo.get_categoriesbyareacustoms @id = '" + id + "', @orgid = '" + User.OrgId + "'";
             IEnumerable<CategoriesMaster> dataObj = db.Database.SqlQuery<CategoriesMaster>(sqlstring);
             return dataObj;
         }

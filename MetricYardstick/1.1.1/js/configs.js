@@ -94,6 +94,21 @@ angularApp.config(function ($routeProvider, $locationProvider) {
             }
         })
 
+        .when('/education/', {
+            controller: 'user_educationCtrl',
+            templateUrl: '/1.1.1/html/user/user_education.html',
+            routedata: {
+                secure: true,
+                title: 'Education',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
         .when('/reports/', {
             controller: 'user_reportsCtrl',
             templateUrl: '/1.1.1/html/user/user_reports.html',

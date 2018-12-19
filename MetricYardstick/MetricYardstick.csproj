@@ -261,11 +261,17 @@
     <Compile Include="Controllers\CategoriesMastersController.cs" />
     <Compile Include="Controllers\CategorySkillsCustomsController.cs" />
     <Compile Include="Controllers\CategorySkillsMastersController.cs" />
+    <Compile Include="Controllers\CertificationsController.cs" />
+    <Compile Include="Controllers\DegreeLevelsController.cs" />
+    <Compile Include="Controllers\DegreeTypesController.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\OrganizationUsersController.cs" />
     <Compile Include="Controllers\SkillsCustomsController.cs" />
     <Compile Include="Controllers\SkillsLocalsController.cs" />
     <Compile Include="Controllers\SkillsMastersController.cs" />
+    <Compile Include="Controllers\UserEducationsController.cs" />
     <Compile Include="Controllers\UserSkillsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="C__MigrationHistory.cs">
@@ -380,6 +386,7 @@
     <Content Include="1.1.1\html\user\user_addskill.html" />
     <Content Include="1.1.1\html\user\user_addskills.html" />
     <Content Include="1.1.1\html\user\user_editskill.html" />
+    <Content Include="1.1.1\html\user\user_education.html" />
     <Content Include="1.1.1\html\user\user_help.html" />
     <Content Include="1.1.1\html\user\user_home.html" />
     <Content Include="1.1.1\html\user\user_reports.html" />

@@ -641,6 +641,12 @@ angularApp.controller("user_wishlistCtrl", function ($scope) {
 
 });
 
+angularApp.controller("user_educationCtrl", function ($scope) {
+
+    console.log('Education Controller Processed');
+
+});
+
 angularApp.controller("user_reportsCtrl", function ($scope) {
 
     console.log('Reports Controller Processed');

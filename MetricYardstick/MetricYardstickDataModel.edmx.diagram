@@ -4,31 +4,37 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9eb79fc55e024bd7bf8cd2ead6257d55" Name="Diagram1">
-        <EntityTypeShape EntityType="MetricYardstickDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.AreaCategoriesCustom" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.AreaCategoriesMaster" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasLocal" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="9eb79fc55e024bd7bf8cd2ead6257d55" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="MetricYardstickDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.AreaCategoriesCustom" Width="1.5" PointX="6.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.AreaCategoriesMaster" Width="1.5" PointX="5.125" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasLocal" Width="1.5" PointX="8.75" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MetricYardstickDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MetricYardstickDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MetricYardstickDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MetricYardstickDBModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesLocal" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.CategorySkillsCustom" Width="1.5" PointX="12.625" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.Organization" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.OrganizationUser" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsLocal" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.UserSkill" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesLocal" Width="1.5" PointX="10.375" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.CategorySkillsCustom" Width="1.5" PointX="6.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.Organization" Width="1.5" PointX="7.125" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.OrganizationUser" Width="1.5" PointX="8.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsLocal" Width="1.5" PointX="12" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.UserSkill" Width="1.5" PointX="8.875" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="MetricYardstickDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="MetricYardstickDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="MetricYardstickDBModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.CategorySkillsMaster" Width="1.5" PointX="0.75" PointY="13.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasCustom" Width="1.5" PointX="7.375" PointY="4.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasMaster" Width="1.5" PointX="12.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesCustom" Width="1.5" PointX="13.375" PointY="8.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesMaster" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsCustom" Width="1.5" PointX="14.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsMaster" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.CategorySkillsMaster" Width="1.5" PointX="5.125" PointY="9.875" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasCustom" Width="1.5" PointX="8.75" PointY="9.5" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.AreasMaster" Width="1.5" PointX="8.75" PointY="7" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesCustom" Width="1.5" PointX="10.375" PointY="9.5" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.CategoriesMaster" Width="1.5" PointX="10.375" PointY="7" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsCustom" Width="1.5" PointX="12" PointY="9.5" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.SkillsMaster" Width="1.5" PointX="12" PointY="7" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.Certification" Width="1.5" PointX="13.875" PointY="5" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.DegreeLevel" Width="1.5" PointX="12.25" PointY="3.25" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.DegreeType" Width="1.5" PointX="12.25" PointY="5" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.Field" Width="1.5" PointX="13.875" PointY="3.25" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.Institution" Width="1.5" PointX="12.25" PointY="1" />
+        <EntityTypeShape EntityType="MetricYardstickDBModel.UserEducation" Width="1.5" PointX="10.625" PointY="1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

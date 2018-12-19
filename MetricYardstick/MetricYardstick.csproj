@@ -244,6 +244,9 @@
     <Compile Include="CategorySkillsMaster.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Certification.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Classes\FetchTemplate.cs" />
     <Compile Include="Classes\GetValue.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -268,6 +271,15 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DegreeLevel.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DegreeType.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Field.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="get_categoriesbyareacustoms_Result.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
@@ -282,6 +294,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Institution.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MetricYardstickDataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -321,6 +336,9 @@
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="UserEducation.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserSkill.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>

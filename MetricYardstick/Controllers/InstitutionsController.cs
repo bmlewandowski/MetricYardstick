@@ -13,7 +13,7 @@ using MetricYardstick;
 
 namespace MetricYardstick.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class InstitutionsController : ApiController
     {
         private MetricYardstickDBEntities db = new MetricYardstickDBEntities();
@@ -24,7 +24,13 @@ namespace MetricYardstick.Controllers
             return db.Institutions;
         }
 
-        //TODO:  GET INSTITUTIONS BY STATE
+        // GET: api/GetInstitutionsByState/CA
+        [Route("api/GetInstitutionsByState/{state}/")]
+        public IQueryable<Institution> GetInstitutionsByState(string state)
+        {
+            return db.Institutions.Where(x => x.State == state);
+
+        }
 
         // GET: api/Institutions/5
         [ResponseType(typeof(Institution))]

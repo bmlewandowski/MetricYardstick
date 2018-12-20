@@ -641,7 +641,7 @@ angularApp.controller("user_wishlistCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_educationCtrl", function ($scope) {
+angularApp.controller("user_educationCtrl", function ($scope, $http) {
 
     $scope.initialize = function () {
 
@@ -656,14 +656,47 @@ angularApp.controller("user_educationCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_addeducationCtrl", function ($scope) {
+angularApp.controller("user_addeducationCtrl", function ($scope, $http) {
 
     $scope.initialize = function () {
 
+        //Initalize Data Models
+        $scope.searchtext = "";
 
+        $scope.userState = '';
+        $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+            'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
+            'WY').split(' ').map(function (state) { return { abbrev: state }; });
     }
 
+    //Function to Submit the Form
+    $scope.searchState = function (state) {
 
+        //Initialze the Area Model
+        $scope.institutions = [];
+
+        //Make a call to get the Master Areas
+        $http.get('/api/GetInstitutionsByState/' + state,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Master Areas to the Areas Model
+                $scope.institutions = response.data;
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
 
     $scope.initialize();
 
@@ -671,7 +704,7 @@ angularApp.controller("user_addeducationCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_editeducationCtrl", function ($scope) {
+angularApp.controller("user_editeducationCtrl", function ($scope, $http) {
 
     $scope.initialize = function () {
 

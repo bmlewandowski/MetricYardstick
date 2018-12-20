@@ -1,0 +1,55 @@
+﻿<!--FORM AREA-->
+<div class="form_mainarea">
+    <form name="addUserEducationForm">
+
+        <!--Education Label-->
+
+
+        <md-input-container>
+            <label>State</label>
+            <md-select ng-model="userState" ng-change="searchState(userState)">
+                <md-option><em>None</em></md-option>
+                <md-option ng-repeat="state in states" ng-value="state.abbrev">
+                    {{state.abbrev}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        &nbsp;&nbsp;&nbsp;
+        <input ng-model="searchtext" placeholder="Search...">
+        <!--<md-button class="md-raised" ng-click="searchstate(userState)">Search</md-button>-->
+
+        <div style="clear: both;padding-top:20px;"></div>
+        <div ng-hide="searchtext.length < 2">
+
+            <div ng-repeat="(key,value) in institutions | filter:searchtext">
+
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span style="font-size:20px;">{{ value.name }}</span>
+                            <span style="font-size:14px;">{{ value.city }}, {{ value.state }}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="selectinstitution(value.id)">Select Institution</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+
+
+
+        <div style="clear: both;padding-top:30px;"></div>
+
+
+
+
+
+        <!--SUBMIT BUTTON-->
+        <div style="margin-left:auto; margin-right:auto; width:300px;">
+            <md-button ng-click="cancel()" class="md-raised md-warn">CANCEL</md-button>
+            <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="education.rating < 1 "> SUBMIT </md-button>
+
+        </div>
+    </form>
+</div>

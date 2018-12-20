@@ -374,6 +374,7 @@
     <Content Include="1.1.1\html\components\form_admin_area.html" />
     <Content Include="1.1.1\html\components\form_admin_category.html" />
     <Content Include="1.1.1\html\components\form_admin_skill.html" />
+    <Content Include="1.1.1\html\components\form_user_addeducation.html" />
     <Content Include="1.1.1\html\components\form_user_addskill.html" />
     <Content Include="1.1.1\html\components\form_user_skill.html" />
     <Content Include="1.1.1\html\components\landing_footer.html" />

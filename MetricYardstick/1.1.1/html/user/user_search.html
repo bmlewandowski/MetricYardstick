@@ -23,7 +23,7 @@
                           
                         <div ng-repeat="(key,value) in skills | filter:searchtext">
 
-                            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card>
                                 <md-card-title>
                                     <md-card-title-text>
                                         <span class="md-headline">{{ value.name }}</span>     
@@ -31,21 +31,21 @@
                                 </md-card-title>
                                 <md-card-actions layout="row" layout-align="end center">
                                     <!--<md-button>Search Users</md-button>-->
-                                    <md-button ng-click="addskill(value.id, value.type)">Add This Skill</md-button>
+                                    <md-button class="md-primary" ng-click="addskill(value.id, value.type)">Add This Skill</md-button>
                                 </md-card-actions>
                             </md-card>                            
                         </div>    
                         
                         <div ng-repeat="(key,value) in users | filter:searchtext">
 
-                            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card>
                                 <md-card-title>
                                     <md-card-title-text>
                                         <span class="md-headline">{{ value.userName }}</span>
                                     </md-card-title-text>                                 
                                 </md-card-title>
                                 <md-card-actions layout="row" layout-align="end center">
-                                    <md-button ng-click="viewuser(value.userId)">View User</md-button>
+                                    <md-button class="md-primary" ng-click="viewuser(value.userId)">View User</md-button>
                                     <!--<md-button>Email User</md-button>&nbsp;&nbsp;-->
                                     &nbsp;&nbsp;
                                     <img mat-card-sm-image src="/1.1.1/img/user.png" width="50" />

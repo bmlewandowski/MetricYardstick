@@ -109,6 +109,36 @@ angularApp.config(function ($routeProvider, $locationProvider) {
             }
         })
 
+        .when('/addeducation/', {
+            controller: 'user_addeducationCtrl',
+            templateUrl: '/1.1.1/html/user/user_addeducation.html',
+            routedata: {
+                secure: true,
+                title: 'Add Education',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
+        .when('/editeducation/:id', {
+            controller: 'user_editeducationCtrl',
+            templateUrl: '/1.1.1/html/user/user_editeducation.html',
+            routedata: {
+                secure: true,
+                title: 'Edit Education',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
         .when('/reports/', {
             controller: 'user_reportsCtrl',
             templateUrl: '/1.1.1/html/user/user_reports.html',

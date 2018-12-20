@@ -643,7 +643,46 @@ angularApp.controller("user_wishlistCtrl", function ($scope) {
 
 angularApp.controller("user_educationCtrl", function ($scope) {
 
+    $scope.initialize = function () {
+
+
+    }
+
+
+
+    $scope.initialize();
+
     console.log('Education Controller Processed');
+
+});
+
+angularApp.controller("user_addeducationCtrl", function ($scope) {
+
+    $scope.initialize = function () {
+
+
+    }
+
+
+
+    $scope.initialize();
+
+    console.log('Add Education Controller Processed');
+
+});
+
+angularApp.controller("user_editeducationCtrl", function ($scope) {
+
+    $scope.initialize = function () {
+
+
+    }
+
+
+
+    $scope.initialize();
+
+    console.log('Edit Education Controller Processed');
 
 });
 

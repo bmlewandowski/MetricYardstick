@@ -383,8 +383,10 @@
     <Content Include="1.1.1\html\login\auth.html" />
     <Content Include="1.1.1\html\login\login.html" />
     <Content Include="1.1.1\html\register\register.html" />
+    <Content Include="1.1.1\html\user\user_addeducation.html" />
     <Content Include="1.1.1\html\user\user_addskill.html" />
     <Content Include="1.1.1\html\user\user_addskills.html" />
+    <Content Include="1.1.1\html\user\user_editeducation.html" />
     <Content Include="1.1.1\html\user\user_editskill.html" />
     <Content Include="1.1.1\html\user\user_education.html" />
     <Content Include="1.1.1\html\user\user_help.html" />

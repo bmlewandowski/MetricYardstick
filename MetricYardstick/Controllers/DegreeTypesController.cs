@@ -24,6 +24,14 @@ namespace MetricYardstick.Controllers
             return db.DegreeTypes;
         }
 
+        // GET: api/GetDegreeTypebyLevel/2
+        [Route("api/GetDegreeTypebyLevel/{level}/")]
+        public IQueryable<DegreeType> GetInstitutionsByState(int level)
+        {
+            return db.DegreeTypes.Where(x => x.DegreeLevel == level);
+
+        }
+
         // GET: api/DegreeTypes/5
         [ResponseType(typeof(DegreeType))]
         public async Task<IHttpActionResult> GetDegreeType(int id)

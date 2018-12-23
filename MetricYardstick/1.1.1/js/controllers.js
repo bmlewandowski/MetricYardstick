@@ -656,27 +656,51 @@ angularApp.controller("user_educationCtrl", function ($scope, $http) {
 
 });
 
-angularApp.controller("user_addeducationCtrl", function ($scope, $http) {
+angularApp.controller("user_addeducationCtrl", function ($scope, $http, $location) {
 
     $scope.initialize = function () {
 
         //Initalize Data Models
-        $scope.searchtext = "";
+        $scope.institutionSelected = false; 
+        $scope.certificationSelected = false; 
+        $scope.enableMajorMinor = false;
+        $scope.othercertificationcheck = false;
+        $scope.enableCompletion = false;
+        $scope.selectedInstitution = {};
+        $scope.selectedField = {};
+        $scope.searchtext = '';
+        $scope.searchtextcert = '';
+        $scope.states = [];
+        $scope.majors = [];
+        $scope.minors = [];
+        $scope.institutions = [];
+        $scope.degreelevels = [];
+        $scope.degreetypes = [];
+        $scope.certifications = [];
 
-        $scope.userState = '';
+        //Populate Data Models
+        $scope.loadstates();
+        $scope.getdegreelevels();
+        $scope.loadfields();
+        $scope.loadcertifications();
+
+    }
+
+    //Make a call to load States for Dropdown
+    $scope.loadstates = function () {
+
         $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
             'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
             'WY').split(' ').map(function (state) { return { abbrev: state }; });
-    }
 
-    //Function to Submit the Form
-    $scope.searchState = function (state) {
 
-        //Initialze the Area Model
-        $scope.institutions = [];
+    };
 
-        //Make a call to get the Master Areas
-        $http.get('/api/GetInstitutionsByState/' + state,
+    //Make a call to load Major/Minor Fields
+    $scope.loadfields = function () {
+
+        //Make a call to get Degree Levels
+        $http.get('/api/Fields',
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -687,6 +711,59 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http) {
             }).then(function successCallback(response) {
 
                 //Add the Master Areas to the Areas Model
+                $scope.majors = response.data;
+                $scope.minors = response.data;
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Make a call to get Degree Levels for Dropdown
+    $scope.getdegreelevels = function () {
+
+        //Make a call to get Degree Levels
+        $http.get('/api/DegreeLevels',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Master Areas to the Areas Model
+                $scope.degreelevels = response.data;
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function to Search Institutions by State
+    $scope.searchState = function (state) {
+
+        //Make a call to get Institutions
+        $http.get('/api/GetInstitutionsByState/' + state,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Institutions ot the Scope
                 $scope.institutions = response.data;
 
                 //on Fail, log the failure data.
@@ -695,6 +772,164 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http) {
                 console.log(response);
 
             });
+
+    };
+
+    //Function to Load Certifications
+    $scope.loadcertifications = function () {
+
+        //Make a call to get Institutions
+        $http.get('/api/Certifications/',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Certifications to the Scope
+                $scope.certifications = response.data;
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function to Select Institution by State
+    $scope.selectInstitution = function (value) {
+
+        //other institution selected
+        if (value == 0) {
+
+            $scope.selectedInstitution.name = document.getElementById("otherinstitutiondesc").value;
+            $scope.selectedInstitution.city = "custom";
+            $scope.selectedInstitution.state = "custom";
+            $scope.institutionSelected = true;
+        }
+        else {
+            $scope.selectedInstitution = value;
+            $scope.institutionSelected = true;;
+        }
+
+    };
+
+    //Function to Select Major/Minor
+    $scope.selectMajorMinor = function () {
+
+        //TODO: Go to Finalize Forms
+        $scope.enableMajorMinor = false;
+        $scope.enableCompletion = true;
+
+        //$scope.selectedField.title01 = document.getElementById("othercertificationdesc").value;
+
+    };
+
+    //Function to Select Certification
+    $scope.selectCertification = function (value) {
+
+        //other institution selected
+        if (value == 0) {
+            $scope.certificationSelected = true;
+            $scope.selectedField.title01 = document.getElementById("othercertificationdesc").value;
+        }
+        else {
+            $scope.certificationSelected = true;
+            $scope.selectedField.title01 = value.name;
+        }
+
+        //TODO: Go to Finalize Forms
+        $scope.enableCertification = false;
+        $scope.enableCompletion = true;
+    };
+
+    //Called when Other Institution Checked
+    $scope.otherinstitutionchecked = function () {
+
+        document.getElementById("searchbox").value = '';
+        $scope.institutions = [];
+    };
+
+    //Called when Other Certification Checked
+    $scope.othercertificationchecked = function () {
+
+        if ($scope.othercertificationcheck == false) {
+            $scope.othercertificationcheck = true
+            document.getElementById("searchboxcert").value = '';
+            $scope.certifications = [];
+        }
+        else {
+            $scope.othercertificationcheck = false
+            $scope.loadcertifications();
+        }
+
+    };
+
+    //Function to Search Degree Type by Degree Level
+    $scope.searchdegreelevel = function (degreelevel) {
+
+        //Show Major/Minor or Certified/Licensed
+        if (degreelevel < 3) {
+            $scope.enableMajorMinor = false;
+            $scope.enableCertification = true;
+            $scope.enableCompletion = false;
+
+            //Load Certifications
+            $scope.loadcertifications();
+
+        }
+        else {
+            $scope.enableMajorMinor = true;
+            $scope.enableCertification = false;
+            $scope.enableCompletion = false;
+        }
+
+        //Make a call to get Degree Types
+        $http.get('/api/GetDegreeTypebyLevel/' + degreelevel,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Master Areas to the Areas Model
+                $scope.degreetypes = response.data;
+
+                //Set default Certified or Licensed if only option
+                if (degreelevel < 3) {
+
+                    //Set default dropdown value
+                    $scope.degreetype = degreelevel;
+
+                    //Show/Hide Major/Minor or Certificate/License
+                    //$scope.selectdegreetype(degreelevel);
+                }
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Clear Form
+    $scope.clear = function () {
+
+        //Clear Searchboxes
+        document.getElementById("searchbox").value = '';
+        document.getElementById("searchboxcert").value = '';
+        //Reset Form
+        $scope.initialize();
 
     };
 

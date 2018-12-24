@@ -17,16 +17,16 @@
             &nbsp;&nbsp;&nbsp;
 
             <!--State Search Box-->
-            <input id="searchbox" ng-model="searchtext" placeholder="search in selected state..." style="width:350px;" ng-disabled="otherinstitution">
+            <input id="searchbox" ng-model="searchtext" placeholder="search in selected state..." style="width:350px;" ng-disabled="formData.otherinstitution">
 
             <!--Other Institution Options-->
             <div style="padding-left:20px;">
-                <md-checkbox ng-model="otherinstitution" ng-change="otherinstitutionchecked()">
+                <md-checkbox ng-model="formData.otherinstitution" ng-change="otherinstitutionchecked()">
                     Other
                 </md-checkbox>
                 &nbsp;
-                <input type="text" id="otherinstitutiondesc" placeholder="institution name..." ng-model="otherinstitutiondesc" ng-disabled="!otherinstitution">
-                <md-button class="md-raised md-primary" ng-click="selectInstitution('0')" ng-disabled="!otherinstitution">Select Institution</md-button>
+                <input type="text" id="otherinstitutiondesc" placeholder="institution name..." ng-model="formData.otherinstitutiondesc" ng-disabled="!formData.otherinstitution">
+                <md-button class="md-raised md-primary" ng-click="selectInstitution('0')" ng-disabled="!formData.otherinstitution">Select Institution</md-button>
             </div>
 
             <div style="clear: both;padding-top:10px;"></div>
@@ -67,7 +67,7 @@
             <!--Degree Level Dropdown-->
             <md-input-container>
                 <label>Degree Level</label>
-                <md-select id="degreelevelselect" ng-model="degreelevel" ng-change="searchdegreelevel(degreelevel)" aria-label="Degree Level">
+                <md-select id="degreelevelselect" ng-model="formData.degreelevel" ng-change="searchdegreelevel(formData.degreelevel)" aria-label="Degree Level">
                     <md-option ng-repeat="(key,value) in degreelevels" ng-value="value.id">
                         {{value.name}}
                     </md-option>
@@ -77,7 +77,7 @@
             <!--Degree Type Dropdown-->
             <md-input-container>
                 <label>Degree Type</label>
-                <md-select id="degreetypeselect" ng-model="degreetype" aria-label="Degree Type">
+                <md-select id="degreetypeselect" ng-model="formData.degreetype" aria-label="Degree Type">
                     <md-option ng-repeat="(key,value) in degreetypes" ng-value="value.id">
                         {{value.name}}
                     </md-option>
@@ -92,7 +92,7 @@
                 <!--Major Dropdown-->
                 <md-input-container>
                     <label>Major Field of Study</label>
-                    <md-select id="majorselect" ng-model="major" aria-label="Major" ng-disabled="othermajor">
+                    <md-select id="majorselect" ng-model="formData.major" aria-label="Major" ng-disabled="formData.othermajor">
                         <md-option><em>None</em></md-option>
                         <md-option ng-repeat="(key,value) in majors" ng-value="value.id">
                             {{value.name}}
@@ -101,11 +101,11 @@
                 </md-input-container>
                 <!--Other Major Options-->
                 <div style="padding-left:20px;">
-                    <md-checkbox ng-model="othermajor" ng-change="othermajorchecked()">
+                    <md-checkbox ng-model="formData.othermajor" ng-change="othermajorchecked()">
                         Other
                     </md-checkbox>
                     &nbsp;
-                    <input type="text" id="othermajordesc" placeholder="major name..." ng-model="othermajordesc" ng-disabled="!othermajor">
+                    <input type="text" id="othermajordesc" placeholder="major name..." ng-model="formData.othermajordesc" ng-disabled="!formData.othermajor">
                 </div>
 
                 <div style="clear:both;padding-top:20px;"></div>
@@ -113,7 +113,7 @@
                 <!--Minor Dropdown-->
                 <md-input-container>
                     <label>Minor Field of Study</label>
-                    <md-select id="minorselect" ng-model="minor" aria-label="Minor" ng-disabled="otherminor">
+                    <md-select id="minorselect" ng-model="formData.minor" aria-label="Minor" ng-disabled="formData.otherminor">
                         <md-option><em>None</em></md-option>
                         <md-option ng-repeat="(key,value) in minors" ng-value="value.id">
                             {{value.name}}
@@ -123,11 +123,11 @@
 
                 <!--Other Minor Options-->
                 <div style="padding-left:20px;">
-                    <md-checkbox ng-model="otherminor" ng-change="otherminorchecked()">
+                    <md-checkbox ng-model="formData.otherminor" ng-change="otherminorchecked()">
                         Other
                     </md-checkbox>
                     &nbsp;
-                    <input type="text" id="otherminordesc" placeholder="minor name..." ng-model="otherminordesc" ng-disabled="!otherminor">
+                    <input type="text" id="otherminordesc" placeholder="minor name..." ng-model="formData.otherminordesc" ng-disabled="!formData.otherminor">
                 </div>
 
                 <!--Confirm Major/Minor Button-->
@@ -141,16 +141,16 @@
             <div id="div_certification" ng-show="enableCertification">
 
                 <!--Certification Search Box-->
-                <input id="searchboxcert" ng-model="searchtextcert" placeholder="search certifications..." style="width:350px;" ng-disabled="othercertification">
+                <input id="searchboxcert" ng-model="searchtextcert" placeholder="search certifications..." style="width:350px;" ng-disabled="formData.othercertification">
 
                 <!--Other Certification Options-->
                 <div style="padding-left:20px;">
-                    <md-checkbox id="othercertificationcheck" ng-model="othercertification" ng-change="othercertificationchecked()">
+                    <md-checkbox id="othercertificationcheck" ng-model="formData.othercertification" ng-change="othercertificationchecked()">
                         Other
                     </md-checkbox>
                     &nbsp;
-                    <input type="text" id="othercertificationdesc" placeholder="certification name..." ng-model="othercertificationdesc" ng-disabled="!othercertification">
-                    <md-button class="md-raised md-primary" ng-click="selectCertification('0')" ng-disabled="!othercertification">Select Certification</md-button>
+                    <input type="text" id="othercertificationdesc" placeholder="certification name..." ng-model="formData.othercertificationdesc" ng-disabled="!formData.othercertification">
+                    <md-button class="md-raised md-primary" ng-click="selectCertification('0')" ng-disabled="!formData.othercertification">Select Certification</md-button>
                 </div>
 
                 <div style="clear: both;padding-top:10px;"></div>
@@ -182,24 +182,34 @@
 
                 <div style="font-size:18px">{{selectedField.title01}}</div>
                 <div style="font-size:18px">{{selectedField.title02}}</div>
+
                 <div style="clear: both;padding-top:20px;"></div>
 
+                <!--Completed Checkbox-->
+                <md-checkbox id="completed" ng-model="formData.completed">
+                    Academic Requirements Completed
+                </md-checkbox>
 
-                <label>Completion Date:</label>
-                <md-datepicker ng-model="completiondate" md-placeholder="Enter date"></md-datepicker>
+                <div style="clear:both;padding-top:20px;"></div>
+
+                <!--Completion Datepicker-->
+                <md-datepicker ng-model="formData.completiondate" md-placeholder="Enter date"></md-datepicker>
+                <label>Date of Graduation/Award</label>
                 <div style="padding-top:30px;"></div>
 
                 <!--Submit Button-->
-                <md-button ng-click="submit()" class="md-raised md-primary">SUBMIT</md-button>
+                <div style="float:right;width:75px;">
+                    <md-button ng-click="submitform()" class="md-raised md-primary">SUBMIT</md-button>
+                </div>
             </div>
 
-            <!--Clear/Reset Form-->
-            <div style="float:right;">
-                <md-button ng-click="clear()" class="md-raised md-warn ">CLEAR</md-button>
+                <!--Clear/Reset Form-->
+                <div style="float:right;width:75px;padding-right:50px;">
+                    <md-button ng-click="clear()" class="md-raised md-warn ">CLEAR</md-button>
+                </div>
+
             </div>
-
-        </div>
-
+        
         <div style="clear:both;padding-top:30px;"></div>
 
     </form>

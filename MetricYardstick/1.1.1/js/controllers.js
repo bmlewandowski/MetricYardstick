@@ -661,21 +661,37 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
     $scope.initialize = function () {
 
         //Initalize Data Models
+        $scope.formData = {
+            otherinstitution: false,
+            otherinstitutiondesc: '',
+            major: '',
+            othermajor: false,
+            othermajordesc: '',
+            minor: '',
+            otherminor: false,
+            otherminordesc: '',
+            certification: '',
+            othercertification: false,
+            othercertificationdesc: '',
+            completed: true,
+            completiondate: ''
+
+        };
         $scope.institutionSelected = false; 
         $scope.certificationSelected = false; 
         $scope.enableMajorMinor = false;
-        $scope.othercertificationcheck = false;
+        //$scope.othercertificationcheck = false;
         $scope.enableCompletion = false;
         $scope.selectedInstitution = {};
         $scope.selectedField = {};
         $scope.searchtext = '';
         $scope.searchtextcert = '';
         $scope.states = [];
-        $scope.majors = [];
-        $scope.minors = [];
         $scope.institutions = [];
         $scope.degreelevels = [];
         $scope.degreetypes = [];
+        $scope.majors = [];
+        $scope.minors = [];
         $scope.certifications = [];
 
         //Populate Data Models
@@ -807,6 +823,7 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
         //other institution selected
         if (value == 0) {
 
+            $scope.selectedInstitution.id = value;
             $scope.selectedInstitution.name = document.getElementById("otherinstitutiondesc").value;
             $scope.selectedInstitution.city = "custom";
             $scope.selectedInstitution.state = "custom";
@@ -814,7 +831,7 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
         }
         else {
             $scope.selectedInstitution = value;
-            $scope.institutionSelected = true;;
+            $scope.institutionSelected = true;
         }
 
     };
@@ -833,14 +850,16 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
     //Function to Select Certification
     $scope.selectCertification = function (value) {
 
-        //other institution selected
+        //other certification selected
         if (value == 0) {
             $scope.certificationSelected = true;
             $scope.selectedField.title01 = document.getElementById("othercertificationdesc").value;
+
         }
         else {
             $scope.certificationSelected = true;
             $scope.selectedField.title01 = value.name;
+            $scope.formData.certification = value.id;
         }
 
         //TODO: Go to Finalize Forms
@@ -919,6 +938,60 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
                 console.log(response);
 
             });
+
+    };
+
+    //Submit Form
+    $scope.submitform = function () {
+
+        console.log($scope.formData.degreelevel);
+
+        //If Certificate
+        if ($scope.formData.degreelevel < 3) {
+
+            $scope.form = {
+
+                institution: $scope.selectedInstitution.id,
+                otherinstitution: $scope.formData.otherinstitution,
+                otherinstitutiondesc: $scope.formData.otherinstitutiondesc,
+                degreelevel: $scope.formData.degreelevel,
+                degreetype: $scope.formData.degreetype,
+                major: $scope.formData.certification,
+                othermajor: $scope.formData.othercertification,
+                othermajordesc: $scope.formData.othercertificationdesc,
+                minor: $scope.formData.minor,
+                otherminor: $scope.formData.otherminor,
+                otherminordesc: $scope.formData.otherminordesc,
+                completed: $scope.formData.completed,
+                completiondate: $scope.formData.completiondate
+            };
+
+        }
+        //Else Associates or above
+        else {
+
+            $scope.form = {
+
+                institution: $scope.selectedInstitution.id,
+                otherinstitution: $scope.formData.otherinstitution,
+                otherinstitutiondesc: $scope.formData.otherinstitutiondesc,
+                degreelevel: $scope.formData.degreelevel,
+                degreetype: $scope.formData.degreetype,
+                major: $scope.formData.major,
+                othermajor: $scope.formData.othermajor,
+                othermajordesc: $scope.formData.othermajordesc,
+                minor: $scope.formData.minor,
+                otherminor: $scope.formData.otherminor,
+                otherminordesc: $scope.formData.otherminordesc,
+                completed: $scope.formData.completed,
+                completiondate: $scope.formData.completiondate
+            };
+
+        }
+
+        console.log($scope.form);
+
+        //TODO POST $scope.form to education controller
 
     };
 

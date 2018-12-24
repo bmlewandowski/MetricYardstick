@@ -37,6 +37,15 @@ namespace MetricYardstick.Controllers
             return Ok(userEducation);
         }
 
+        // GET: api/UserEducations/5
+        [Route("api/GetEducationByUser/{id}")]
+        [ResponseType(typeof(UserEducation))]
+        public IQueryable<UserEducation> GetEducationByUser(string id)
+        {
+            //UserEducation userEducation = await db.UserEducations.FindAsync(id);
+            return db.UserEducations.Where(x => x.UserId == id);
+        }
+
         // PUT: api/UserEducations/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutUserEducation(int id, UserEducation userEducation)
@@ -76,6 +85,18 @@ namespace MetricYardstick.Controllers
         [ResponseType(typeof(UserEducation))]
         public async Task<IHttpActionResult> PostUserEducation(UserEducation userEducation)
         {
+            //Get Current User from Claim Token
+            var User = new AccountController().getUser();
+
+            //Get Current User and apply to the Model
+            userEducation.UserId = User.UserId;
+
+            //Get Current Org and apply to the Model
+            userEducation.OrgId = User.OrgId;
+
+            //Set Created Date to Current
+            userEducation.Created = DateTime.Now;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

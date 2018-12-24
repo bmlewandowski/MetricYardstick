@@ -21,19 +21,17 @@
                 <!--Skill Table Grid-->
                 <table class="user_skill_table">
                     <tr>
-                        <td class="user_skill_th"></td>
-                        <td class="user_skill_th">Skill Name</td>
-                        <td class="user_skill_th">Proficiency Rating</td>
-                        <td class="user_skill_th">Created</td>
-                        <td class="user_skill_th">Modified</td>
+                        <td class="user_skill_th">Institution</td>
+                        <td class="user_skill_th">Degree Level</td>
+                        <td class="user_skill_th">Degree Type</td>
+                        <td class="user_skill_th">Completed</td>
                     </tr>
 
-                    <tr ng-repeat="(key,value) in userskills" ng-style="ratingstyle(value)">
-                        <td class="user_skill_tr"><a href="/editskill/{{value.id}}/{{value.type}}"><div class="user_skill_editbutton">EDIT</div></a></td>
-                        <td class="user_skill_tr">{{value.name}}</td>
-                        <td class="user_skill_tr">{{value.rating}}</td>
-                        <td class="user_skill_tr">{{value.created | date:"MM/dd/yyyy"}}</td>
-                        <td class="user_skill_tr">{{value.modified | date:"MM/dd/yyyy"}}</td>
+                    <tr ng-repeat="(key,value) in usereducations">
+                        <td class="user_skill_tr">{{value.institution}}</td>
+                        <td class="user_skill_tr">{{value.degreeLevel}}</td>
+                        <td class="user_skill_tr">{{value.degreeType}}</td>
+                        <td class="user_skill_tr">{{value.completionDate | date:"MM/dd/yyyy"}}</td>
                     </tr>
 
                 </table>

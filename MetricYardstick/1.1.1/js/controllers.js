@@ -526,8 +526,6 @@ angularApp.controller("user_addskillCtrl", function ($scope, $http, $routeParams
             Type: $scope.skill.type
         };
 
-        //TODO: Check for UserSkill: Add Controller Function to see IF EXISTS
-
         $http.post('/api/UserSkills', dataObj,
             {
                 headers: {
@@ -641,14 +639,44 @@ angularApp.controller("user_wishlistCtrl", function ($scope) {
 
 });
 
-angularApp.controller("user_educationCtrl", function ($scope, $http) {
+angularApp.controller("user_educationCtrl", function ($scope, $rootScope, $http) {
 
     $scope.initialize = function () {
 
+        //Initalize Data Models
+        $scope.usereducations = {};
+
+        //Load Data Models
+        $scope.loadusereducation();
 
     }
 
+    //Load User Skills Function
+    $scope.loadusereducation = function () {
 
+        $http.get('/api/GetEducationByUser/' + $rootScope.user.userId,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                $scope.usereducations = response.data;
+                console.log($scope.usereducations);
+
+                //on Fail, log the failure data.
+
+            }, function errorCallback(response) {
+
+
+                console.log(response);
+
+            });
+
+    };
 
     $scope.initialize();
 
@@ -944,12 +972,10 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
     //Submit Form
     $scope.submitform = function () {
 
-        console.log($scope.formData.degreelevel);
-
-        //If Certificate
+        //If Certificate/License
         if ($scope.formData.degreelevel < 3) {
 
-            $scope.form = {
+            $scope.formData = {
 
                 institution: $scope.selectedInstitution.id,
                 otherinstitution: $scope.formData.otherinstitution,
@@ -970,7 +996,7 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
         //Else Associates or above
         else {
 
-            $scope.form = {
+            $scope.formData = {
 
                 institution: $scope.selectedInstitution.id,
                 otherinstitution: $scope.formData.otherinstitution,
@@ -987,11 +1013,27 @@ angularApp.controller("user_addeducationCtrl", function ($scope, $http, $locatio
                 completiondate: $scope.formData.completiondate
             };
 
+            console.log($scope.formData);
+
+            $http.post('/api/UserEducations', $scope.formData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+                }).then(function (response) {
+
+                    $location.path('/education/');
+
+                    console.log(response);
+
+                }, function errorCallback(response) {
+
+                    console.log("Add User Skill Failed");
+                });
+
+
         }
-
-        console.log($scope.form);
-
-        //TODO POST $scope.form to education controller
 
     };
 

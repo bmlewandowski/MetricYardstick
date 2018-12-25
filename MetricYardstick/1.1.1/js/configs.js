@@ -94,6 +94,51 @@ angularApp.config(function ($routeProvider, $locationProvider) {
             }
         })
 
+        .when('/addwishlists/', {
+            controller: 'user_addwishlistsCtrl',
+            templateUrl: '/1.1.1/html/user/user_addwishlists.html',
+            routedata: {
+                secure: true,
+                title: 'Add Wishlists',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
+        .when('/addwishlist/:id/:type', {
+            controller: 'user_addwishlistCtrl',
+            templateUrl: '/1.1.1/html/user/user_addwishlist.html',
+            routedata: {
+                secure: true,
+                title: 'Add Wishlist',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
+        .when('/editwishlist/:id/:type', {
+            controller: 'user_editwishlistCtrl',
+            templateUrl: '/1.1.1/html/user/user_editwishlist.html',
+            routedata: {
+                secure: true,
+                title: 'Edit a Wishlist',
+                area: 'user'
+            },
+            resolve: {
+                message: function (General) {
+                    return General.routeload();
+                }
+            }
+        })
+
         .when('/education/', {
             controller: 'user_educationCtrl',
             templateUrl: '/1.1.1/html/user/user_education.html',

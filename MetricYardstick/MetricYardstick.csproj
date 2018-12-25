@@ -379,8 +379,8 @@
     <Content Include="1.1.1\html\components\form_admin_category.html" />
     <Content Include="1.1.1\html\components\form_admin_skill.html" />
     <Content Include="1.1.1\html\components\form_user_addeducation.html" />
-    <Content Include="1.1.1\html\components\form_user_addskill.html" />
     <Content Include="1.1.1\html\components\form_user_skill.html" />
+    <Content Include="1.1.1\html\components\form_user_wishlist.html" />
     <Content Include="1.1.1\html\components\landing_footer.html" />
     <Content Include="1.1.1\html\components\landing_header.html" />
     <Content Include="1.1.1\html\components\navbar_admin.html" />
@@ -391,8 +391,11 @@
     <Content Include="1.1.1\html\user\user_addeducation.html" />
     <Content Include="1.1.1\html\user\user_addskill.html" />
     <Content Include="1.1.1\html\user\user_addskills.html" />
+    <Content Include="1.1.1\html\user\user_addwishlist.html" />
+    <Content Include="1.1.1\html\user\user_addwishlists.html" />
     <Content Include="1.1.1\html\user\user_editeducation.html" />
     <Content Include="1.1.1\html\user\user_editskill.html" />
+    <Content Include="1.1.1\html\user\user_editwishlist.html" />
     <Content Include="1.1.1\html\user\user_education.html" />
     <Content Include="1.1.1\html\user\user_help.html" />
     <Content Include="1.1.1\html\user\user_home.html" />

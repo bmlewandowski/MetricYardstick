@@ -633,9 +633,631 @@ angularApp.controller("user_editskillCtrl", function ($scope, $http, $routeParam
 
 });
 
-angularApp.controller("user_wishlistCtrl", function ($scope) {
+angularApp.controller("user_wishlistCtrl", function ($scope, $rootScope, $http) {
+
+    $scope.initialize = function () {
+
+        //Initalize Data Models
+        $scope.userskills = {};
+
+        //Load Data Models
+        $scope.loaduserskills();
+
+    }
+
+    //Change Row Color Based on Rating
+    $scope.ratingstyle = function (value) {
+
+        if (value.rating < 26) {
+            return {
+                color: "red"
+            }
+        }
+
+        if (value.rating > 25 && value.rating < 51) {
+            return {
+                color: "orange"
+            }
+        }
+
+        if (value.rating > 50 && value.rating < 75) {
+            return {
+                color: "blue"
+            }
+        }
+
+        if (value.rating > 75) {
+            return {
+                color: "green"
+            }
+        }
+
+    }
+
+    //Load User Skills Function
+    $scope.loaduserskills = function () {
+
+        $http.get('/api/UserWishlists/GetUsersWishlists/' + $rootScope.user.userId + "/master",
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(masterdata) {
+
+
+                $http.get('/api/UserWishlists/GetUsersWishlists/' + $rootScope.user.userId + "/custom",
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        }
+
+                        //On Success Response from API
+                    }).then(function successCallback(customdata) {
+
+                        $scope.userskills = masterdata.data.concat(customdata.data);
+
+                        //on Fail, log the failure data.
+
+                    }, function errorCallback(response) {
+
+
+                        console.log(response);
+
+                    });
+
+                //on Fail, log the failure data.
+
+            }, function errorCallback(response) {
+
+
+                console.log(response);
+
+            });
+
+    };
+
+    $scope.initialize();
 
     console.log('Wishlist Controller Processed');
+
+
+});
+
+angularApp.controller("user_addwishlistsCtrl", function ($scope, $rootScope, $http, $routeParams, $location) {
+
+    $scope.initialize = function () {
+
+        //Initalize Data Models
+        $scope.userskills = {};
+        $scope.searchskills = [];
+        $scope.searchtext = "";
+
+        //Load Data Models
+        $scope.loadsearchskills();
+
+        //Call the Load Area Data Function to populate the view
+        $scope.loadareas();
+    }
+
+    //Load Skills Function
+    $scope.loadsearchskills = function () {
+
+        var allskills = [];
+
+        $http.get('/api/SkillsMasters',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function (masterdata) {
+
+                $http.get('/api/SkillsCustoms',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        }
+
+                        //On Success Response from API
+                    }).then(function (customdata) {
+
+                        $scope.allskills = masterdata.data.concat(customdata.data);
+
+                        //loop through scope to 
+                        angular.forEach($scope.allskills, function (value, key) {
+                            var skill = { name: value.name, value: value.name.toLowerCase(), description: value.description, id: value.id, type: value.type };
+                            allskills.push(skill);
+                        });
+
+                        $scope.searchskills = allskills;
+
+                        //on Fail, log the failure data.
+                    }, function errorCallback(response) {
+
+                        console.log(response);
+                    });
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+            });
+
+    };
+
+    //Function - Load Area Data
+    $scope.loadareas = function () {
+
+        //Initialze the Area Model
+        $scope.areas = [];
+
+        //Make a call to get the Master Areas
+        $http.get('/api/AreasMasters',
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Success Response from API
+            }).then(function successCallback(response) {
+
+                //Add the Master Areas to the Areas Model
+                $scope.areas = response.data;
+
+                //Make a call to the Custom Areas
+                $http.get('/api/AreasCustoms',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        }
+
+                        //On Success Response from API
+                    }).then(function successCallback(response) {
+
+                        //Add the Custom Areas to the Areas Model
+                        $scope.areas = $scope.areas.concat(response.data);
+
+                        //Sort the Areas Scope
+                        $scope.sortObj($scope.areas);
+
+                        //If this is the first time here, select the first Area in the List
+                        if ($rootScope.admin_catalog_state.currentArea == 0) {
+
+                            console.log('First time Here:')
+                            console.log('Selecting - ID: ' + $scope.areas[0].id + ' Type: ' + $scope.areas[0].type)
+
+
+                            $scope.selectArea($scope.areas[0].id, $scope.areas[0].type);
+
+                            //Otherwise, call the select Area function
+                        } else {
+
+                            console.log('Navigating back:')
+                            console.log('Selecting - ID: ' + $rootScope.admin_catalog_state.currentArea + ' Type: ' + $rootScope.admin_catalog_state.currentAreaType)
+
+                            $scope.selectArea($rootScope.admin_catalog_state.currentArea, $rootScope.admin_catalog_state.currentAreaType);
+
+                        };
+
+                        //on Fail, log the failure data.
+                    }, function errorCallback(response) {
+
+                        //Log the Error
+                        console.log(response);
+
+                    });
+
+                //on Fail, log the failure data.
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function - Load Category Data
+    $scope.loadcategories = function (areaid, areatype) {
+
+        //initialize the categories
+        $scope.categories = [];
+
+        //If the Parent Area is a Master, call the get Category by Master Area Endpoint.
+        if (areatype == "master") {
+
+            //Make a call to get the Master (& possibly custom) Categories in the Master Area
+            $http.get('/api/CategoriesbyAreaMasters/' + areaid + '/',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+
+                    //On Success Response from API
+                }).then(function successCallback(response) {
+
+                    //Check for Null Data
+                    if (!response.data.length == 0) {
+
+                        //Populate the Category Model with the response data
+                        $scope.categories = response.data;
+
+                        //Sort the Category Scope
+                        $scope.sortObj($scope.categories);
+
+                        //If this is the first time here, select the first Area in the List
+                        if (!$scope.categories.find(o => o.id === $rootScope.admin_catalog_state.currentCategory && o.type === $rootScope.admin_catalog_state.currentCategoryType) || $rootScope.admin_catalog_state.currentCategory == 0) {
+
+                            $scope.selectCategory($scope.categories[0].id, $scope.categories[0].type);
+
+                            //Otherwise, call the select Area function
+                        } else {
+
+                            $scope.selectCategory($rootScope.admin_catalog_state.currentCategory, $rootScope.admin_catalog_state.currentCategoryType);
+
+                        };
+
+                    } else {
+
+                        //The catagory is empty, so clear the skills as well. 
+                        $scope.skills = [];
+
+                    };
+
+                    //on Fail, log the failure data.
+                }, function errorCallback(response) {
+
+                    console.log(response);
+
+                });
+
+            //Otherwise, if the Parent Area is a Custom, just grab all the custom areas. 
+        } else {
+
+            //Make a call to get the Custom Categories
+            $http.get('/api/CategoriesbyAreaCustoms/' + areaid + '/',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+
+                    //On Success Response from API
+                }).then(function successCallback(response) {
+
+                    //Check for Null Data
+                    if (response.data[0]) {
+
+                        //Populate the Category Model with the reponse data
+                        $scope.categories = response.data;
+
+                        //Sort the Category Scope
+                        $scope.sortObj($scope.categories);
+
+                        //If this is the first time here, select the first Area in the List
+                        if (!$scope.categories.find(o => o.id === $rootScope.admin_catalog_state.currentCategory && o.type === $rootScope.admin_catalog_state.currentCategoryType) || $rootScope.admin_catalog_state.currentCategory == 0) {
+
+                            $scope.selectCategory($scope.categories[0].id, $scope.categories[0].type);
+
+                            //Otherwise, call the select Area function
+                        } else {
+
+                            $scope.selectCategory($rootScope.admin_catalog_state.currentCategory, $rootScope.admin_catalog_state.currentCategoryType);
+
+                        };
+
+                    } else {
+
+                        //the custom category is empty, so clear out the skills as well
+                        $scope.skills = [];
+
+                    };
+
+                    //on Fail, log the failure data.
+                }, function errorCallback(response) {
+
+                    console.log(response);
+
+                });
+
+        };
+
+    };
+
+    //Function - Load Skill Data
+    $scope.loadskills = function (categoryid, categorytype) {
+
+        //initialize the categories
+        $scope.skills = [];
+
+        //If the Parent Area is a Master, call the get Category by Master Area Endpoint.
+        if (categorytype == "master") {
+
+            //Make a call to get the Master (& possibly custom) Categories in the Master Area
+            $http.get('/api/SkillsGroupMasters/' + categoryid + '/',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+
+                    //On Success Response from API
+                }).then(function successCallback(response) {
+
+                    //Populate the Category Model with the response data
+                    $scope.skills = response.data;
+
+                    //Sort the Category Scope
+                    $scope.sortObj($scope.skills);
+
+                    //If this is the first time here, select the first Skill in the List
+                    if ($rootScope.admin_catalog_state.currentSkill == 0) {
+
+                        $scope.selectSkill($scope.skills[0].id, $scope.skills[0].type);
+
+                        //Otherwise, call the select Area function
+                    } else {
+
+                        $scope.selectSkill($rootScope.admin_catalog_state.currentSkill, $rootScope.admin_catalog_state.currentSkillType);
+
+                    };
+
+                    //on Fail, log the failure data.
+                }, function errorCallback(response) {
+
+                    console.log(response);
+
+                });
+
+            //Otherwise, if the Parent Area is a Custom, just grab all the custom areas. 
+        } else {
+
+            //Make a call to get the Custom Categories
+            $http.get('/api/SkillsGroupCustoms/' + categoryid + '/',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+
+                    //On Success Response from API
+                }).then(function successCallback(response) {
+
+                    //Populate the Category Model with the reponse data
+                    $scope.skills = response.data;
+
+                    //Sort the Category Scope
+                    $scope.sortObj($scope.skills);
+
+                    //If this is the first time here, select the first Skill in the List
+                    if ($rootScope.admin_catalog_state.currentSkill == 0) {
+
+                        $scope.selectSkill($scope.skills[0].id, $scope.skills[0].type);
+
+                        //Otherwise, call the select Area function
+                    } else {
+
+                        $scope.selectSkill($rootScope.admin_catalog_state.currentSkill, $rootScope.admin_catalog_state.currentSkillType);
+
+                    };
+
+                    //on Fail, log the failure data.
+                }, function errorCallback(response) {
+
+                    console.log(response);
+
+                });
+
+        };
+
+    };
+
+    //Function - Select Area
+    $scope.selectArea = function (id, type) {
+
+        //Set the Current Area Selection 
+        $rootScope.admin_catalog_state.currentArea = id;
+        $rootScope.admin_catalog_state.currentAreaType = type;
+
+        //Load the categories
+        $scope.loadcategories(id, type);
+
+    };
+
+    //Function - Select Category
+    $scope.selectCategory = function (id, type) {
+
+        $rootScope.admin_catalog_state.currentCategory = id;
+        $rootScope.admin_catalog_state.currentCategoryType = type;
+
+        //$rootScope.admin_catalog_state.currentSkill = 0;
+        //$rootScope.admin_catalog_state.currentSkillType = '';
+
+        $scope.loadskills(id, type);
+
+    };
+
+    //Function - Select Skill
+    $scope.selectSkill = function (id, type) {
+
+        $rootScope.admin_catalog_state.currentSkill = id;
+        $rootScope.admin_catalog_state.currentSkillType = type;
+
+    };
+
+    //Function - Sort The Areas Model by Name
+    $scope.sortObj = function (object) {
+
+        //Sort Areas Aphabetically
+        object.sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+        });
+
+    };
+
+    $scope.initialize();
+
+    console.log('Add Wishlists Controller Processed');
+
+});
+
+angularApp.controller("user_addwishlistCtrl", function ($scope, $http, $routeParams, $location) {
+
+    $scope.initialize = function () {
+
+        //Load the Data
+        $scope.loadskill();
+    }
+
+    //Function to Load the Form Data
+    $scope.loadskill = function () {
+
+        //Make a Rest Call
+        $http.get('/api/UserSkills/GetSelectedWishlist/' + $routeParams.id + "/" + $routeParams.type,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Succsess of the REST call
+            }).then(function (response) {
+                console.log(response);
+                $scope.skill = response.data[0];
+                //Set selected skill id and rating to 0 to disable button
+                $scope.skill.rating = 0;
+
+                //On Failure of the REST call
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function to Submit the Form
+    $scope.submit = function () {
+
+        var dataObj = {
+            SkillId: $scope.skill.id,
+            Rating: $scope.skill.rating,
+            Type: $scope.skill.type
+        };
+
+        $http.post('/api/UserWishlists', dataObj,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            }).then(function (response) {
+
+                $location.path('/wishlist/');
+
+                console.log(response);
+
+            }, function errorCallback(response) {
+
+                console.log("Add User Wishlist Failed");
+            });
+
+
+    };
+
+    //Function to Cancel the Form
+    $scope.cancel = function () {
+        $location.path('/addskills/');
+    };
+
+    $scope.initialize();
+
+    console.log('Add Wishlist Area Controller Processed');
+
+});
+
+angularApp.controller("user_editwishlistCtrl", function ($scope, $http, $routeParams, $location) {
+
+    $scope.initialize = function () {
+        //Initialize the data models
+        $scope.skill = {};
+
+        //Load the Data
+        $scope.loadskill();
+
+    }
+
+    //Function to Load the Form Data
+    $scope.loadskill = function () {
+
+        //Make a Rest Call
+        $http.get('/api/UserWishlists/' + $routeParams.id + "/" + $routeParams.type,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                }
+
+                //On Succsess of the REST call
+            }).then(function (response) {
+
+                $scope.skill = response.data[0];
+
+                //On Failure of the REST call
+            }, function errorCallback(response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function to Submit the Form
+    $scope.submit = function () {
+
+        ////Make a Rest Call
+        var req = {
+            method: 'PUT',
+            url: '/api/UserWishlists/' + $scope.skill.id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            },
+            data: $scope.skill
+        }
+        console.log(req)
+        $http(req)
+            //On Succsess of the REST call
+            .then(function (response) {
+
+                $location.path('/wishlists/');
+
+                //On Failure of the REST call
+            }, function (response) {
+
+                console.log(response);
+
+            });
+
+    };
+
+    //Function to Cancel the Form
+    $scope.cancel = function () {
+        $location.path('/wishlist/');
+    };
+
+    $scope.initialize();
+
+    console.log('Edit Wishlist Area Controller Processed');
 
 });
 

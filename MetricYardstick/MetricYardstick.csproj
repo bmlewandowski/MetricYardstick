@@ -273,6 +273,7 @@
     <Compile Include="Controllers\SkillsMastersController.cs" />
     <Compile Include="Controllers\UserEducationsController.cs" />
     <Compile Include="Controllers\UserSkillsController.cs" />
+    <Compile Include="Controllers\UserWishlistsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
@@ -346,6 +347,9 @@
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserSkill.cs">
+      <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserWishlist.cs">
       <DependentUpon>MetricYardstickDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user_object_Result.cs">

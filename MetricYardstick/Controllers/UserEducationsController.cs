@@ -42,9 +42,26 @@ namespace MetricYardstick.Controllers
         [ResponseType(typeof(UserEducation))]
         public IQueryable<UserEducation> GetEducationByUser(string id)
         {
-            //UserEducation userEducation = await db.UserEducations.FindAsync(id);
             return db.UserEducations.Where(x => x.UserId == id);
         }
+
+        //public async Task<IHttpActionResult> GetEducationByUser(string id)
+        //{
+        //    var query = from edu in db.UserEducations
+        //                join ins in db.Institutions on edu.Institution equals ins.Id
+        //                join mjr in db.Fields on edu.Major equals mjr.Id
+        //                join mnr in db.Fields on edu.Minor equals mnr.Id
+        //                where edu.UserId == id
+        //                select new
+        //                {
+        //                    ins.Name,
+        //                    edu.CompletionDate,
+
+
+        //                };
+
+        //    return Ok(query);
+        //}
 
         // PUT: api/UserEducations/5
         [ResponseType(typeof(void))]

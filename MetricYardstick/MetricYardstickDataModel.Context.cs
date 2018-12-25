@@ -54,6 +54,7 @@ namespace MetricYardstick
         public virtual DbSet<Field> Fields { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
         public virtual DbSet<UserEducation> UserEducations { get; set; }
+        public virtual DbSet<UserWishlist> UserWishlists { get; set; }
     
         public virtual ObjectResult<Nullable<int>> delete_areacategoriescustoms(Nullable<int> categoryid)
         {

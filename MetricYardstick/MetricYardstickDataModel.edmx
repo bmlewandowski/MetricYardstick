@@ -201,7 +201,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="DegreeLevels">
@@ -348,6 +348,20 @@
           <Property Name="Modified" Type="datetime2" Precision="7" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserWishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Private" Type="int" Nullable="false" />
+          <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Modified" Type="datetime2" Precision="7" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -461,6 +475,7 @@
           <EntitySet Name="SkillsMasters" EntityType="Self.SkillsMasters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserEducation" EntityType="Self.UserEducation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSkills" EntityType="Self.UserSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserWishlist" EntityType="Self.UserWishlist" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -731,19 +746,19 @@
           <Parameter Name="skillid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_categoriesbyareacustoms" ReturnType="Collection(MetricYardstickDBModel.get_categoriesbyareacustoms_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="orgid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_categoriesbyareamasters" ReturnType="Collection(MetricYardstickDBModel.get_categoriesbyareamasters_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="orgid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_skillsbycategorycustoms" ReturnType="Collection(MetricYardstickDBModel.get_skillsbycategorycustoms_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="orgid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_skillsbycategorymasters" ReturnType="Collection(MetricYardstickDBModel.get_skillsbycategorymasters_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="orgid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="user_object" ReturnType="Collection(MetricYardstickDBModel.user_object_Result)">
@@ -762,6 +777,7 @@
           <EntitySet Name="Fields" EntityType="MetricYardstickDBModel.Field" />
           <EntitySet Name="Institutions" EntityType="MetricYardstickDBModel.Institution" />
           <EntitySet Name="UserEducations" EntityType="MetricYardstickDBModel.UserEducation" />
+          <EntitySet Name="UserWishlists" EntityType="MetricYardstickDBModel.UserWishlist" />
         </EntityContainer>
         <ComplexType Name="get_categoriesbyareacustoms_Result">
           <Property Type="Int32" Name="id" Nullable="true" />
@@ -903,7 +919,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DegreeLevel">
@@ -968,6 +984,20 @@
           <Property Name="ExpectedCompletionDate" Type="DateTime" Precision="7" />
           <Property Name="Private" Type="Boolean" Nullable="false" />
           <Property Name="Created" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="UserWishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Private" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Modified" Type="DateTime" Precision="7" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1405,6 +1435,21 @@
                 <ScalarProperty Name="OtherInstitution" ColumnName="OtherInstitution" />
                 <ScalarProperty Name="Institution" ColumnName="Institution" />
                 <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserWishlists">
+            <EntityTypeMapping TypeName="MetricYardstickDBModel.UserWishlist">
+              <MappingFragment StoreEntitySet="UserWishlist">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Private" ColumnName="Private" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

@@ -1122,7 +1122,7 @@ angularApp.controller("user_addwishlistCtrl", function ($scope, $http, $routePar
     $scope.loadskill = function () {
 
         //Make a Rest Call
-        $http.get('/api/UserSkills/GetSelectedWishlist/' + $routeParams.id + "/" + $routeParams.type,
+        $http.get('/api/UserWishlists/GetSelectedWishlist/' + $routeParams.id + "/" + $routeParams.type,
             {
                 headers: {
                     'Content-Type': 'application/json',

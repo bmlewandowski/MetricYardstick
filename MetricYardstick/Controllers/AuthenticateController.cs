@@ -12,8 +12,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.SqlClient;
 using System.Data;
-using SendGrid.Helpers.Mail;
-using SendGrid;
 using System.Threading.Tasks;
 using MetricYardstick.Models;
 using System.Net.Mail;

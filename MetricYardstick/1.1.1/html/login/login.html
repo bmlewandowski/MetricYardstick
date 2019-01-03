@@ -17,20 +17,25 @@
             <!--LOGIN FORM AREA-->
             <div style="margin-left:200px;margin-top:60px;">
 
-                <form name="loginEmailForm" ng-submit="loginemail()" novalidate>
+                <form name="loginEmailForm" ng-submit="loginemail()">
 
                     <div style="margin-bottom:20px;">Enter your email and click login:</div>
 
-                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="loginemail.email" />
+                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="loginemail.email" required />
 
                     <button class="user_search_button" ng-click="submit()" style="border:none;">LOGIN</button>
 
+                    <span class="form_validation_error">{{form.error}}</span>
                 </form>
+
+
 
                 <!--Link to Register Area-->
                 <div style="margin-top:20px;font-size:14px;">
                     <a class="form_message" href="/register/">Want to try for free? Register Here</a>
                 </div>
+
+
 
             </div>
 

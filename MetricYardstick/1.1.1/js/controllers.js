@@ -3395,6 +3395,8 @@ angularApp.controller("loginCtrl", function ($scope, $http) {
 
     $scope.loginemail = function () {
 
+        $scope.form = {};
+
         var dataObj = {
             email: $scope.loginemail.email,
             template: "loginTemplate.html",
@@ -3412,7 +3414,8 @@ angularApp.controller("loginCtrl", function ($scope, $http) {
 
             }, function errorCallback(response) {
 
-                console.log("Login Failed");
+                $scope.form.error = "* " + response.data;
+
             });
 
     };
@@ -3450,9 +3453,10 @@ angularApp.controller("authCtrl", function ($scope, $location, $routeParams, $ht
 
 angularApp.controller("registerCtrl", function ($scope, $location, $http) {
 
-
     $scope.register = function () {
-        console.log('starting register');
+
+        $scope.form = {};
+
         var dataObj = {
             email: $scope.register.email,
             organization: $scope.register.organization,
@@ -3474,11 +3478,11 @@ angularApp.controller("registerCtrl", function ($scope, $location, $http) {
 
             }, function errorCallback(response) {
 
-                console.log("Register Failed");
+                console.log(response.data);
+                $scope.form.error = "* " + response.data.message;
             });
 
     };
-
 
     console.log('Register Controller Processed');
 

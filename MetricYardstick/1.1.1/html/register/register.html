@@ -17,16 +17,18 @@
 
             <div style="margin-left:250px;">
 
-                <form name="RegisterForm" ng-submit="register()" novalidate>
+                <form name="RegisterForm" ng-submit="register()">
 
-                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="register.email" />
+                    <input class="user_search_input" placeholder="Email" type="text" name="Email" ng-model="register.email" required />
                     <div style="clear: both;padding-bottom: 30px;"></div>
 
-                    <input class="user_search_input" placeholder="Organization or Company Name" type="text" name="Organization" ng-model="register.organization" />
+                    <input class="user_search_input" placeholder="Organization or Company Name" type="text" name="Organization" ng-model="register.organization" required />
                     <div style="clear: both;padding-bottom: 30px;"></div>
                     <button class="user_search_button" ng-click="submit()" style="border:none;width:150px;">REGISTER</button>
-
+                    <span class="form_validation_error">{{form.error}}</span>
                 </form>
+
+
 
                 <!--Link to Login Area-->
                 <div style="margin-top:30px;font-size:14px;">

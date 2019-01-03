@@ -141,6 +141,12 @@ h1 {
 
 }
 
+.form_validation_error {
+    font-size: 14px;
+    font-style:italic;
+    color: red;
+}
+
 /**** Buttons ****/
 
 .button_center {

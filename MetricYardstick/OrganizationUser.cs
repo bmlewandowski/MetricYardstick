@@ -17,6 +17,7 @@ namespace MetricYardstick
         public int Id { get; set; }
         public int OrgId { get; set; }
         public string UserId { get; set; }
+        public string ReportsTo { get; set; }
         public System.DateTime Created { get; set; }
         public int Admin { get; set; }
         public string AuthKey01 { get; set; }

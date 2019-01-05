@@ -37,8 +37,6 @@ namespace MetricYardstick
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<CategoriesLocal> CategoriesLocals { get; set; }
         public virtual DbSet<CategorySkillsCustom> CategorySkillsCustoms { get; set; }
-        public virtual DbSet<Organization> Organizations { get; set; }
-        public virtual DbSet<OrganizationUser> OrganizationUsers { get; set; }
         public virtual DbSet<SkillsLocal> SkillsLocals { get; set; }
         public virtual DbSet<UserSkill> UserSkills { get; set; }
         public virtual DbSet<CategorySkillsMaster> CategorySkillsMasters { get; set; }
@@ -55,6 +53,8 @@ namespace MetricYardstick
         public virtual DbSet<Institution> Institutions { get; set; }
         public virtual DbSet<UserEducation> UserEducations { get; set; }
         public virtual DbSet<UserWishlist> UserWishlists { get; set; }
+        public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<OrganizationUser> OrganizationUsers { get; set; }
     
         public virtual ObjectResult<Nullable<int>> delete_areacategoriescustoms(Nullable<int> categoryid)
         {

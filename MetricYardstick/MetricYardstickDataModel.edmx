@@ -245,6 +245,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StripeId" Type="nvarchar" MaxLength="128" />
+          <Property Name="PlanId" Type="nvarchar" MaxLength="128" />
+          <Property Name="SubscriptionId" Type="nvarchar" MaxLength="128" />
+          <Property Name="SubscriptionDate" Type="datetime2" Precision="7" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MaxUsers" Type="int" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
@@ -263,6 +267,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrgId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReportsTo" Type="nvarchar" MaxLength="256" />
           <Property Name="Created" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Admin" Type="int" Nullable="false" />
           <Property Name="AuthKey01" Type="nvarchar" MaxLength="128" />
@@ -622,35 +627,6 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Organization">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaxUsers" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Phone" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
-        </EntityType>
-        <EntityType Name="OrganizationUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Admin" Type="Int32" Nullable="false" />
-          <Property Name="AuthKey01" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="AuthKey02" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="AuthKeyExpires" Type="DateTime" Precision="7" />
-        </EntityType>
         <EntityType Name="SkillsLocal">
           <Key>
             <PropertyRef Name="Id" />
@@ -720,8 +696,6 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="CategoriesLocals" EntityType="Self.CategoriesLocal" />
           <EntitySet Name="CategorySkillsCustoms" EntityType="Self.CategorySkillsCustom" />
-          <EntitySet Name="Organizations" EntityType="Self.Organization" />
-          <EntitySet Name="OrganizationUsers" EntityType="Self.OrganizationUser" />
           <EntitySet Name="SkillsLocals" EntityType="Self.SkillsLocal" />
           <EntitySet Name="UserSkills" EntityType="Self.UserSkill" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -778,6 +752,8 @@
           <EntitySet Name="Institutions" EntityType="MetricYardstickDBModel.Institution" />
           <EntitySet Name="UserEducations" EntityType="MetricYardstickDBModel.UserEducation" />
           <EntitySet Name="UserWishlists" EntityType="MetricYardstickDBModel.UserWishlist" />
+          <EntitySet Name="Organizations" EntityType="MetricYardstickDBModel.Organization" />
+          <EntitySet Name="OrganizationUsers" EntityType="MetricYardstickDBModel.OrganizationUser" />
         </EntityContainer>
         <ComplexType Name="get_categoriesbyareacustoms_Result">
           <Property Type="Int32" Name="id" Nullable="true" />
@@ -999,6 +975,40 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Modified" Type="DateTime" Precision="7" />
         </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StripeId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PlanId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SubscriptionId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SubscriptionDate" Type="DateTime" Precision="7" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaxUsers" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="OrganizationUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReportsTo" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Admin" Type="Int32" Nullable="false" />
+          <Property Name="AuthKey01" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AuthKey02" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AuthKeyExpires" Type="DateTime" Precision="7" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1128,37 +1138,6 @@
                 <ScalarProperty Name="OrgId" ColumnName="OrgId" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Organizations">
-            <EntityTypeMapping TypeName="MetricYardstickDBModel.Organization">
-              <MappingFragment StoreEntitySet="Organizations">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="MaxUsers" ColumnName="MaxUsers" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrganizationUsers">
-            <EntityTypeMapping TypeName="MetricYardstickDBModel.OrganizationUser">
-              <MappingFragment StoreEntitySet="OrganizationUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Admin" ColumnName="Admin" />
-                <ScalarProperty Name="AuthKey01" ColumnName="AuthKey01" />
-                <ScalarProperty Name="AuthKey02" ColumnName="AuthKey02" />
-                <ScalarProperty Name="AuthKeyExpires" ColumnName="AuthKeyExpires" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1451,6 +1430,42 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="MetricYardstickDBModel.Organization">
+              <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MaxUsers" ColumnName="MaxUsers" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="StripeId" ColumnName="StripeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrganizationUsers">
+            <EntityTypeMapping TypeName="MetricYardstickDBModel.OrganizationUser">
+              <MappingFragment StoreEntitySet="OrganizationUsers">
+                <ScalarProperty Name="AuthKeyExpires" ColumnName="AuthKeyExpires" />
+                <ScalarProperty Name="AuthKey02" ColumnName="AuthKey02" />
+                <ScalarProperty Name="AuthKey01" ColumnName="AuthKey01" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
